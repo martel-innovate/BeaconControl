@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127133722) do
+ActiveRecord::Schema.define(version: 20170714154238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,16 @@ ActiveRecord::Schema.define(version: 20160127133722) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "coupon_attachments", force: :cascade do |t|
+    t.integer  "coupon_id"
+    t.string   "file"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "coupon_attachments", ["coupon_id"], name: "index_coupon_attachments_on_coupon_id", using: :btree
 
   create_table "coupon_images", force: :cascade do |t|
     t.integer  "coupon_id"
@@ -491,6 +501,7 @@ ActiveRecord::Schema.define(version: 20160127133722) do
   add_foreign_key "beacon_configs", "beacons"
   add_foreign_key "beacon_proximity_fields", "beacons"
   add_foreign_key "beacons", "accounts", name: "index_beacons_on_account_id"
+  add_foreign_key "coupon_attachments", "coupons"
   add_foreign_key "mobile_devices", "users"
   add_foreign_key "rpush_apps", "applications"
   add_foreign_key "users", "applications"

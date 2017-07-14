@@ -3,7 +3,7 @@
 # All rights reserved.
 #
 # This source code is licensed under the BSD 3-Clause License found in the
-# LICENSE.txt file in the root directory of this source tree. 
+# LICENSE.txt file in the root directory of this source tree.
 ###
 
 class ActivityParams
@@ -53,7 +53,7 @@ class ActivityParams
       ],
       coupon_attributes: [
         :id, :template, :name, :title, :description,
-        :logo_cache, :image_cache,
+        :logo_cache, :image_cache, :audio_cache,
         :unique_identifier_number, :identifier_number, :encoding_type,
         :button_label, :button_font_color, :button_background_color,
         :button_link,
@@ -61,6 +61,9 @@ class ActivityParams
           :id, :file, :type, :file_cache, :remove_file
         ],
         image_attributes: [
+          :id, :file, :type, :file_cache, :remove_file
+        ],
+        audio_attributes: [
           :id, :file, :type, :file_cache, :remove_file
         ]
       ]

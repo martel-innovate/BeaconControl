@@ -274,6 +274,11 @@ en:
       change: 'Change'
       remove: 'Remove'
 
+    attachment_input:
+      select: 'Add'
+      change: 'Change'
+      remove: 'Remove'
+
   templates:
     template_1: 'Template with logo'
     template_2: 'Template without logo'
@@ -281,6 +286,7 @@ en:
     template_4: 'Template without logo & with barcode'
     template_5: 'Template with button'
     template_6: 'Template with image & button'
+    template_7: 'Template with audio & button'
 
   triggers:
     enter: 'On Hello'
