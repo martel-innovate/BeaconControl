@@ -444,7 +444,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   sidekiq
   sidekiq-status
-  simple_form
+  simple_form (~> 3.1.0)
   sinatra
   spring
   sprockets (>= 3.0.0)
@@ -456,5 +456,8 @@ DEPENDENCIES
   virtus
   web-console (~> 2.0)
 
+RUBY VERSION
+   ruby 2.2.4p230
+
 BUNDLED WITH
-   1.11.2
+   1.15.1

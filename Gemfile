@@ -98,7 +98,7 @@ gem 'has_scope'
 # QRCode extension for Barby
 gem 'rqrcode'
 
-gem 'simple_form', branch: 'bootstrap-3'
+gem 'simple_form', '~>3.1.0'
 
 gem "deep_merge", :require => 'deep_merge/rails_compat'
 
