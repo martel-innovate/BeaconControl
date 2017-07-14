@@ -1,6 +1,7 @@
 <% content_for :header do %>
   <style>
     .with-audio-button .coupon-header { background: transparent url('/images/preview/audio.png') no-repeat center center; background-color: #d9d9d9; background-size: 30%!important; }
+    .with-audio-button .coupon-header.paused { background-image: url(/images/preview/audio_paused.png); }
   </style>
 <% end %>
 
@@ -24,11 +25,16 @@
   </div>
 </div>
 <script type="text/javascript">
-  audio = new Audio('<%= @coupon.audio.url %>');
+  var audio = new Audio('<%= @coupon.audio.url %>');
+  audio.play();
+  var couponHeader = document.getElementsByClassName("coupon-header")[0];
   var toggleAudio = function(){
-    if(audio.paused)
+    if(audio.paused){
       audio.play();
-    else
+      couponHeader.classList.remove('paused');
+    } else{
       audio.pause();
+      couponHeader.classList.add('paused');
+    }
   }
 </script>
