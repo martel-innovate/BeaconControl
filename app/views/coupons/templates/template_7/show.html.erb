@@ -1,19 +1,11 @@
-<%###
-# Copyright (c) 2015, Upnext Technologies Sp. z o.o.
-# All rights reserved.
-#
-# This source code is licensed under the BSD 3-Clause License found in the
-# LICENSE.txt file in the root directory of this source tree.
-###%>
+<% content_for :header do %>
+  <style>
+    .with-audio-button .coupon-header { background: transparent url('/images/preview/audio.png') no-repeat center center; background-color: #d9d9d9; background-size: 30%!important; }
+  </style>
+<% end %>
 
-<%# content_for :header do %>
-<!--   <style>
-    .coupon-header { background: transparent url('<%= with_host(@coupon.image.url) %>') no-repeat center center; }
-  </style> -->
-<%# end %>
-
-<div class="coupon with-button">
-  <div class="coupon-header">
+<div class="coupon with-audio-button">
+  <div class="coupon-header" onclick="toggleAudio()">
   </div>
   <div class="header-title">
     <div class="coupon-title">
@@ -31,4 +23,12 @@
     %>
   </div>
 </div>
-
+<script type="text/javascript">
+  audio = new Audio('<%= @coupon.audio.url %>');
+  var toggleAudio = function(){
+    if(audio.paused)
+      audio.play();
+    else
+      audio.pause();
+  }
+</script>

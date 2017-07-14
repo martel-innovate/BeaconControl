@@ -5,10 +5,8 @@
   <%= attachment.hidden_field :remove_file, {value: false} %>
   <div class="fileinput <%= attachment.object.file.present? ? 'fileinput-exists' : 'fileinput-new' %> input-group" data-provides="fileinput">
     <div class="form-control" data-trigger="fileinput">
-      <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 50px; max-height: 35px;">
-        <% if attachment.object.file.present? %>
-          <%= image_tag attachment.object.file.url, style: 'max-height: 25px;border: none;' %>
-        <% end %>
+      <div class="attachment-thumbnail thumbnail" style="max-width: 50px; max-height: 35px;">
+        <%= image_tag attachment.object.thumb_url, style: 'max-height: 25px;border: none;' %>
       </div>
     <span class="fileinput-filename" style="line-height: 40px;">
       <% if attachment.object.file.present? %>

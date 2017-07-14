@@ -29,5 +29,9 @@ class CouponAttachment < ActiveRecord::Base
     File.basename(file.path)
   end
 
+  def thumb_url
+    "/images/preview/#{type}.png"
+  end
+
   delegate :url, to: :file, allow_blank: true
 end
