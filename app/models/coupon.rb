@@ -3,7 +3,7 @@
 # All rights reserved.
 #
 # This source code is licensed under the BSD 3-Clause License found in the
-# LICENSE.txt file in the root directory of this source tree. 
+# LICENSE.txt file in the root directory of this source tree.
 ###
 
 class Coupon < ActiveRecord::Base
@@ -12,7 +12,8 @@ class Coupon < ActiveRecord::Base
     template_2: %w[image],
     template_3: %w[logo image encoding_type unique_identifier_number identifier_number],
     template_4: %w[image encoding_type unique_identifier_number identifier_number],
-    template_5: %w[logo image button_font_color button_background_color button_label button_link]
+    template_5: %w[logo image button_font_color button_background_color button_label button_link],
+    template_6: %w[image button_font_color button_background_color button_label]
   }
 
   TEMPLATES = TEMPLATE_FIELDS.keys.map(&:to_s)
@@ -53,7 +54,7 @@ class Coupon < ActiveRecord::Base
   end
 
   def with_button?
-    %w[template_5].include?(template)
+    %w[template_5 template_6].include?(template)
   end
 
   def with_barcode?

@@ -3,7 +3,7 @@
 # All rights reserved.
 #
 # This source code is licensed under the BSD 3-Clause License found in the
-# LICENSE.txt file in the root directory of this source tree. 
+# LICENSE.txt file in the root directory of this source tree.
 ###
 #
 en:
@@ -280,6 +280,7 @@ en:
     template_3: 'Template with logo & barcode'
     template_4: 'Template without logo & with barcode'
     template_5: 'Template with button'
+    template_6: 'Template with image & button'
 
   triggers:
     enter: 'On Hello'
@@ -354,7 +355,7 @@ en:
         To verify beacon setup right away - mark the test notification and make sure the trigger is setup for \"almoust touching\", so you have full control on your test.<br/>
         Click save."
       bring_phone: "Bring together the proper beacon and a phone. The notification should come right away."
-      add_beacon_mobile: "Touch the plus and an arrow right to add a new beacon. Name your beacon and fill it's identification data - 
+      add_beacon_mobile: "Touch the plus and an arrow right to add a new beacon. Name your beacon and fill it's identification data -
         UUID, major and minor. Placing the beacon on the map is optional. To verify beacon setup right away, click \"test notification\"."
       setup_trigger: "Make sure he trigger is setup for \"almoust touching\", so you have full control on your test. Click save."
       sth_wrong: "It's not working. What could have go wrong?"
