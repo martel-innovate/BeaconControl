@@ -39,6 +39,9 @@ en:
       audio:
         file: 'Audio'
 
+      video:
+        file: 'Video'
+
       trigger:
         event_type: 'Trigger'
 

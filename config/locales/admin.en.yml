@@ -287,6 +287,7 @@ en:
     template_5: 'Template with button'
     template_6: 'Template with image & button'
     template_7: 'Template with audio & button'
+    template_8: 'Template with video & button'
 
   triggers:
     enter: 'On Hello'

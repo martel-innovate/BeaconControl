@@ -14,6 +14,7 @@ module S2sApi
       has_one :image
       has_one :logo
       has_one :audio
+      has_one :video
 
       def attributes(*args)
         hash = super
