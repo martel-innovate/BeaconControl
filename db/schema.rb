@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720141305) do
+ActiveRecord::Schema.define(version: 20170722182254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -335,13 +335,13 @@ ActiveRecord::Schema.define(version: 20170720141305) do
 
   create_table "geofences", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "active"
+    t.boolean  "active",                               default: false
     t.decimal  "longtitude", precision: 15, scale: 11
     t.decimal  "latitude",   precision: 15, scale: 11
     t.integer  "radius"
     t.integer  "account_id"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
   end
 
   add_index "geofences", ["account_id"], name: "index_geofences_on_account_id", using: :btree
