@@ -1,0 +1,63 @@
+<%###
+# Copyright (c) 2015, Upnext Technologies Sp. z o.o.
+# All rights reserved.
+#
+# This source code is licensed under the BSD 3-Clause License found in the
+# LICENSE.txt file in the root directory of this source tree. 
+###%>
+
+<% content_for :header_breadcrumbs do %>
+  <span><%= t('.title') %></span>
+<% end %>
+
+<div class="beacons-table linked-rows">
+
+  <div class="table-header">
+    <div class="row">
+      <div class="col-md-2 col-sm-4 col-xs-12">
+        <%= button_link :add_new, new_geofence_path, class: %w[btn-success], i18n: 'geofences.index' %>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-list table-striped live-search-table" data-search-input="#search_table_beacon_name">
+    <thead>
+      <tr>
+        <th class="sortable"><%= sortable "geofences.name", Geofence.human_attribute_name(:name) %></th>
+        <th class="sortable"><%= t('.enter_action') %></th>
+        <th class="sortable"><%= t('.exit_action') %></th>
+        <th class="sortable"><%= Geofence.human_attribute_name(:active) %></th>
+        <th><%= t('.details') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @geofences.each do |geofence| %>
+          <tr>
+            <td><%= truncate(geofence.name, length: 30) %></td>
+            <td class="geofence_enter_action">
+              <%= truncate(geofence.enter_action.name, length: 30) %>
+            </td>
+            <td class="geofence_exit_action">
+              <%= truncate(geofence.exit_action.name, length: 30) %>
+            </td>
+            <td class="geofence_active">
+              <% if geofence.active? %>
+                <%= link_to geofence_path(geofence, geofence: { active: false }), method: :put do %>
+                  <i class='fa fa-2x fa-check-square-o'></i>
+                <% end %>
+              <% else %>
+                <%= link_to geofence_path(geofence, geofence: { active: true }), method: :put do %>
+                  <i class='fa fa-2x fa-square-o'></i>
+                <% end %>
+              <% end %>
+            </td>
+            <td class="disable-select">
+              <%= button_link :edit, edit_geofence_path(geofence), dynamic_width: true %>
+            </td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= prompt_modal(t('geofences.modal.title'), t('geofences.modal.body')) %>

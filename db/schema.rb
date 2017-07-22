@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170714154238) do
+ActiveRecord::Schema.define(version: 20170720141305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,18 @@ ActiveRecord::Schema.define(version: 20170714154238) do
     t.datetime "updated_at", null: false
     t.integer  "brand_id",   null: false
   end
+
+  create_table "actions", force: :cascade do |t|
+    t.string   "name"
+    t.string   "message"
+    t.string   "type"
+    t.boolean  "active"
+    t.integer  "geofence_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "actions", ["geofence_id"], name: "index_actions_on_geofence_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -320,6 +332,19 @@ ActiveRecord::Schema.define(version: 20170714154238) do
     t.string  "key",            null: false
     t.string  "value"
   end
+
+  create_table "geofences", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "active"
+    t.decimal  "longtitude", precision: 15, scale: 11
+    t.decimal  "latitude",   precision: 15, scale: 11
+    t.integer  "radius"
+    t.integer  "account_id"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "geofences", ["account_id"], name: "index_geofences_on_account_id", using: :btree
 
   create_table "mobile_devices", force: :cascade do |t|
     t.integer  "user_id"

@@ -156,6 +156,49 @@ en:
       title: 'Beacons'
       action: 'Add Beacon'
 
+  geofences:
+    edit:
+      title:  'Geofences'
+      action: 'Edit Geofence'
+
+    form:
+      unassigned: 'Unassigned'
+      save: 'Save Geofence'
+      cancel: 'Cancel'
+      test_notification: '(will be displayed for the ContextOS App users)'
+      uuid: 'UUID'
+      proximity: 'UUID'
+      major: Major
+      minor: Minor
+      namespace: Namespace
+      instance: Instance ID
+      url: URL
+      proximity_tooltip: UUID
+
+    index:
+      title:   'Geofences'
+      add_new: 'Add Geofence'
+      options: 'Options'
+      details: 'Details'
+      batch_delete: 'Delete Geofence'
+      enter_action: 'Enter Action'
+      exit_action: 'Exit Action'
+
+      unassigned_zone: 'Unassigned'
+      unassigned_floor: 'N/A'
+      select_zone_prompt: 'Set zone'
+      select_floor_prompt: 'Set floor'
+      search: 'Search...'
+
+    modal:
+      title: 'Warning!'
+      body: 'Are you sure you want to delete geofence?'
+
+    new:
+      title: 'Geofences'
+      action: 'Add Geofence'
+
+
   maps:
     show:
       title: 'Map'
@@ -253,6 +296,7 @@ en:
         applications: 'Applications'
         beacons: 'Beacons'
         zones: 'Zones'
+        geofences: 'Geofences'
         map: 'Map'
         extensions_marketplace: 'Add-ons'
         users: 'Users'
@@ -325,6 +369,9 @@ en:
     zones:
       title: "ZONES"
       body: "Zones functionality enables you to group your beacons into zones according to your criteria. Here, you'll easily manage the deployment of your beacons: for example, your zones can correspond to different floors of a multi-storey building."
+    geofences:
+      title: "GEOFENCES"
+      body: "Geofences"
     map:
       title: "MAP"
       body: "This functionality gives you a visualisation of all your beacons on the map, with no need to refer to a list."
