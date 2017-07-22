@@ -125,6 +125,14 @@ en:
         not_received_unlock: "Didn't receive unlock instructions?"
         sign_in_with: "Sign in with %{provider}"
 
+  geofences:
+    form:
+      geofence_active: Active
+      geofence_inactive: Inactive
+      action: "Action"
+      delete_nice: 'Delete Geofence'
+      next: "Next"
+
   beacons:
     zero: "no beacons"
     one: "%{count} beacon"
