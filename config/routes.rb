@@ -150,6 +150,8 @@ BeaconControl::Application.routes.draw do
         end
       end
 
+      resources :geofences, only: [:index]
+
       resources :beacons, only: [:index, :create, :update, :destroy] do
         collection do
           delete :index, action: :batch_destroy
