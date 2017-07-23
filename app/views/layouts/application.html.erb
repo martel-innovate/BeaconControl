@@ -82,6 +82,7 @@
           <ul class="nav navbar-nav visible-xs-block">
             <li><%= active_link_to t('.menu.dashboard'), main_app.root_path, active: [['dashboard'], []] %></li>
             <li><%= active_link_to t('.menu.beacons'), main_app.beacons_path %></li>
+            <li><%= active_link_to t('.menu.geofences'), main_app.geofences_path %></li>
             <li><%= active_link_to t('.menu.zones'), main_app.zones_path %></li>
             <li><%= active_link_to t('.menu.extensions_marketplace'), main_app.extensions_marketplace_index_path %></li>
             <% if can? :manage, Application %>
