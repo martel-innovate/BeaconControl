@@ -65,6 +65,9 @@ class ActivityParams
         ],
         audio_attributes: [
           :id, :file, :type, :file_cache, :remove_file
+        ],
+        video_attributes: [
+          :id, :file, :type, :file_cache, :remove_file
         ]
       ]
     }.merge(ExtensionsRegistry.extensions_actions_permitted_attributes)
