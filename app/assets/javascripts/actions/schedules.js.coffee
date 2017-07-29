@@ -18,6 +18,11 @@ $ ->
   $startTime = $('#schedule_start_time')
   $endTime = $('#schedule_end_time')
 
+  if $startDate.parent().hasClass('has-error')
+    $('#von').parent().addClass('has-error')
+  if $startTime.parent().hasClass('has-error')
+    $('#start_time').parent().addClass('has-error')
+
   if $startDate.val() != ''
     startDatePicker = $('#von').datetimepicker
       format: 'DD.MM.YYYY'
