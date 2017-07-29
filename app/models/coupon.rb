@@ -22,6 +22,7 @@ class Coupon < ActiveRecord::Base
   enum encoding_type: { qr_code: 0, code_128: 1 }
 
   belongs_to :activity
+  belongs_to :schedule, foreign_key: :schedule_id, autosave: :true
 
   has_one :logo,  ->{ where(type: "logo") },  class_name: "CouponImage", dependent: :destroy
   has_one :image, ->{ where(type: "image") }, class_name: "CouponImage", dependent: :destroy
@@ -55,6 +56,10 @@ class Coupon < ActiveRecord::Base
 
   def barcode(options = {})
     Coupon::Code.new(self).to_image(options)
+  end
+
+  def template_name
+    TEMPLATE_FIELDS[template]
   end
 
   def with_button?

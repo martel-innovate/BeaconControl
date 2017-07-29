@@ -133,6 +133,12 @@ en:
       delete_nice: 'Delete Geofence'
       next: "Next"
 
+  schedules:
+    form:
+      action: "Action"
+      delete_nice: 'Delete Schedule'
+      next: "Next"
+
   beacons:
     zero: "no beacons"
     one: "%{count} beacon"

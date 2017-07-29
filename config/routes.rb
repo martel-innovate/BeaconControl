@@ -88,6 +88,7 @@ BeaconControl::Application.routes.draw do
   resources :beacons_search, only: [:index]
   resources :zones
   resources :geofences
+  resources :schedules
 
   resource :map
 
