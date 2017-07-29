@@ -15,8 +15,10 @@
 <% end %>
 
 <%= content_for :scheme_content_left do %>
-  <h3><%= t("activities.form.scheme.#{@activity.scheme}") %></h3>
-  <%= f.input :name, required: false %>
+  <% if @activity %>
+    <h3><%= t("activities.form.scheme.#{@activity.scheme}") %></h3>
+    <%= f.input :name, required: false %>
+  <% end %>
 
   <div class="coupon-fields" data-mappings=<%= Coupon::TEMPLATE_FIELDS.to_json %>>
     <%= f.fields_for :coupon do |coupon| %>

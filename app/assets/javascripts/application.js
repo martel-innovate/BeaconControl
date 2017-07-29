@@ -42,6 +42,8 @@
 //
 // ### Bootstrap extensions
 //= require bootstrap_components
+//= require moment
+//= require bootstrap-datetimepicker
 //
 // ### Custom etensions
 //= require custom_ext/map

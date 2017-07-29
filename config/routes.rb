@@ -88,6 +88,7 @@ BeaconControl::Application.routes.draw do
   resources :beacons_search, only: [:index]
   resources :zones
   resources :geofences
+  resources :schedules
 
   resource :map
 
@@ -151,6 +152,7 @@ BeaconControl::Application.routes.draw do
       end
 
       resources :geofences, only: [:index]
+      resources :schedules, only: [:index]
 
       resources :beacons, only: [:index, :create, :update, :destroy] do
         collection do

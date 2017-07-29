@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170722182254) do
+ActiveRecord::Schema.define(version: 20170727144401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,9 +211,11 @@ ActiveRecord::Schema.define(version: 20170722182254) do
     t.string   "button_background_color"
     t.string   "button_label"
     t.string   "button_link"
+    t.integer  "schedule_id"
   end
 
   add_index "coupons", ["activity_id"], name: "index_coupons_on_activity_id", using: :btree
+  add_index "coupons", ["schedule_id"], name: "index_coupons_on_schedule_id", using: :btree
   add_index "coupons", ["template"], name: "index_coupons_on_template", using: :btree
 
   create_table "custom_attributes", force: :cascade do |t|
@@ -476,6 +478,23 @@ ActiveRecord::Schema.define(version: 20170722182254) do
 
   add_index "rpush_notifications", ["delivered", "failed"], name: "index_rpush_notifications_multi", where: "((NOT delivered) AND (NOT failed))", using: :btree
 
+  create_table "schedules", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "kind",         default: 1
+    t.date     "start_date"
+    t.date     "end_date"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.integer  "trigger_time", default: 0
+    t.integer  "beacon_id"
+    t.integer  "account_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "schedules", ["account_id"], name: "index_schedules_on_account_id", using: :btree
+  add_index "schedules", ["beacon_id"], name: "index_schedules_on_beacon_id", using: :btree
+
   create_table "triggers", force: :cascade do |t|
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -529,5 +548,7 @@ ActiveRecord::Schema.define(version: 20170722182254) do
   add_foreign_key "coupon_attachments", "coupons"
   add_foreign_key "mobile_devices", "users"
   add_foreign_key "rpush_apps", "applications"
+  add_foreign_key "schedules", "accounts"
+  add_foreign_key "schedules", "beacons"
   add_foreign_key "users", "applications"
 end
