@@ -14,7 +14,8 @@ class Coupon < ActiveRecord::Base
     template_4: %w[image encoding_type unique_identifier_number identifier_number],
     template_5: %w[logo image button_font_color button_background_color button_label button_link],
     template_6: %w[image button_font_color button_background_color button_label button_link],
-    template_7: %w[audio button_font_color button_background_color button_label button_link]
+    template_7: %w[audio button_font_color button_background_color button_label button_link],
+    template_8: %w[video button_font_color button_background_color button_label button_link]
   }
 
   TEMPLATES = TEMPLATE_FIELDS.keys.map(&:to_s)
@@ -27,12 +28,15 @@ class Coupon < ActiveRecord::Base
   has_one :logo,  ->{ where(type: "logo") },  class_name: "CouponImage", dependent: :destroy
   has_one :image, ->{ where(type: "image") }, class_name: "CouponImage", dependent: :destroy
   has_one :audio, ->{ where(type: "audio") }, class_name: 'CouponAttachment', dependent: :destroy
+  has_one :video, ->{ where(type: "video") }, class_name: 'CouponAttachment', dependent: :destroy
 
   accepts_nested_attributes_for :logo,  allow_destroy: true,
     reject_if: ->(params) { params[:file].blank? && params[:file_cache].blank? && params[:remove_file].blank? }
   accepts_nested_attributes_for :image, allow_destroy: true,
     reject_if: ->(params) { params[:file].blank? && params[:file_cache].blank? && params[:remove_file].blank? }
   accepts_nested_attributes_for :audio, allow_destroy: true,
+    reject_if: ->(params) { params[:file].blank? && params[:file_cache].blank? && params[:remove_file].blank? }
+  accepts_nested_attributes_for :video, allow_destroy: true,
     reject_if: ->(params) { params[:file].blank? && params[:file_cache].blank? && params[:remove_file].blank? }
 
   validates :template, inclusion: { in: TEMPLATES }
@@ -63,7 +67,7 @@ class Coupon < ActiveRecord::Base
   end
 
   def with_button?
-    %w[template_5 template_6 template_7].include?(template)
+    %w[template_5 template_6 template_7 template_8].include?(template)
   end
 
   def with_barcode?
@@ -76,5 +80,6 @@ class Coupon < ActiveRecord::Base
     build_logo  if logo.nil?
     build_image if image.nil?
     build_audio if audio.nil?
+    build_video if video.nil?
   end
 end
