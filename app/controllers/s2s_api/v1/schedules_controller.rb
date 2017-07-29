@@ -8,7 +8,7 @@
 
 module S2sApi
   module V1
-    class schedulesController < BaseController
+    class SchedulesController < BaseController
       inherit_resources
       load_and_authorize_resource
 
@@ -56,6 +56,9 @@ module S2sApi
               },
               image: {
                 url: schedule.coupon.try(:image).try(:file_url)
+              },
+              video: {
+                url: schedule.coupon.try(:video).try(:file_url)
               }
             }
           }
