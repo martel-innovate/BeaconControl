@@ -20,6 +20,7 @@
 //
 // ### Libs from gems
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require jquery_nested_form
 //= require twitter/bootstrap
@@ -41,6 +42,8 @@
 //
 // ### Bootstrap extensions
 //= require bootstrap_components
+//= require moment
+//= require bootstrap-datetimepicker
 //
 // ### Custom etensions
 //= require custom_ext/map

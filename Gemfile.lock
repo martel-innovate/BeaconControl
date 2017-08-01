@@ -109,6 +109,8 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-slider-rails (1.9.0)
       railties (>= 3.2, < 5.0)
+    bootstrap3-datetimepicker-rails (4.17.47)
+      momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     cancancan (1.10.1)
     capybara (2.4.4)
@@ -207,6 +209,8 @@ GEM
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (6.0.1)
+      railties (>= 3.2.16)
     json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -230,6 +234,8 @@ GEM
     mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.8.2)
+    momentjs-rails (2.17.1)
+      railties (>= 3.1)
     moneta (0.8.0)
     multi_json (1.11.2)
     multipart-post (2.0.0)
@@ -399,6 +405,7 @@ DEPENDENCIES
   beacon_control-neighbours_extension!
   beacon_control-presence_extension!
   bootstrap-slider-rails
+  bootstrap3-datetimepicker-rails (~> 4.17.47)
   cancancan
   capybara
   carrierwave
@@ -421,10 +428,12 @@ DEPENDENCIES
   inherited_resources!
   jbuilder (~> 2.0)
   jquery-rails
+  jquery-ui-rails
   less
   less-rails
   less-rails-bootstrap
   letter_opener
+  momentjs-rails (>= 2.9.0)
   moneta
   naught
   nested_form
@@ -444,7 +453,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   sidekiq
   sidekiq-status
-  simple_form
+  simple_form (~> 3.1.0)
   sinatra
   spring
   sprockets (>= 3.0.0)
@@ -456,5 +465,8 @@ DEPENDENCIES
   virtus
   web-console (~> 2.0)
 
+RUBY VERSION
+   ruby 2.2.4p230
+
 BUNDLED WITH
-   1.11.2
+   1.15.2

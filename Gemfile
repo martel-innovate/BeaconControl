@@ -25,11 +25,14 @@ gem 'less-rails'
 gem 'less-rails-bootstrap'
 gem 'therubyracer'
 gem 'font-awesome-rails'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 # See https://github.com/sstephenson/execjs#readme for more supported runtime
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -98,7 +101,7 @@ gem 'has_scope'
 # QRCode extension for Barby
 gem 'rqrcode'
 
-gem 'simple_form', branch: 'bootstrap-3'
+gem 'simple_form', '~>3.1.0'
 
 gem "deep_merge", :require => 'deep_merge/rails_compat'
 

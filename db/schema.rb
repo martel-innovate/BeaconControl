@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127133722) do
+ActiveRecord::Schema.define(version: 20170727144401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,18 @@ ActiveRecord::Schema.define(version: 20160127133722) do
     t.datetime "updated_at", null: false
     t.integer  "brand_id",   null: false
   end
+
+  create_table "actions", force: :cascade do |t|
+    t.string   "name"
+    t.string   "message"
+    t.string   "type"
+    t.boolean  "active"
+    t.integer  "geofence_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "actions", ["geofence_id"], name: "index_actions_on_geofence_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -164,6 +176,16 @@ ActiveRecord::Schema.define(version: 20160127133722) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "coupon_attachments", force: :cascade do |t|
+    t.integer  "coupon_id"
+    t.string   "file"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "coupon_attachments", ["coupon_id"], name: "index_coupon_attachments_on_coupon_id", using: :btree
+
   create_table "coupon_images", force: :cascade do |t|
     t.integer  "coupon_id"
     t.string   "file"
@@ -189,9 +211,11 @@ ActiveRecord::Schema.define(version: 20160127133722) do
     t.string   "button_background_color"
     t.string   "button_label"
     t.string   "button_link"
+    t.integer  "schedule_id"
   end
 
   add_index "coupons", ["activity_id"], name: "index_coupons_on_activity_id", using: :btree
+  add_index "coupons", ["schedule_id"], name: "index_coupons_on_schedule_id", using: :btree
   add_index "coupons", ["template"], name: "index_coupons_on_template", using: :btree
 
   create_table "custom_attributes", force: :cascade do |t|
@@ -310,6 +334,19 @@ ActiveRecord::Schema.define(version: 20160127133722) do
     t.string  "key",            null: false
     t.string  "value"
   end
+
+  create_table "geofences", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "active",                               default: false
+    t.decimal  "longtitude", precision: 15, scale: 11
+    t.decimal  "latitude",   precision: 15, scale: 11
+    t.integer  "radius"
+    t.integer  "account_id"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+  end
+
+  add_index "geofences", ["account_id"], name: "index_geofences_on_account_id", using: :btree
 
   create_table "mobile_devices", force: :cascade do |t|
     t.integer  "user_id"
@@ -441,6 +478,23 @@ ActiveRecord::Schema.define(version: 20160127133722) do
 
   add_index "rpush_notifications", ["delivered", "failed"], name: "index_rpush_notifications_multi", where: "((NOT delivered) AND (NOT failed))", using: :btree
 
+  create_table "schedules", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "kind",         default: 1
+    t.date     "start_date"
+    t.date     "end_date"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.integer  "trigger_time", default: 0
+    t.integer  "beacon_id"
+    t.integer  "account_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "schedules", ["account_id"], name: "index_schedules_on_account_id", using: :btree
+  add_index "schedules", ["beacon_id"], name: "index_schedules_on_beacon_id", using: :btree
+
   create_table "triggers", force: :cascade do |t|
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -491,7 +545,10 @@ ActiveRecord::Schema.define(version: 20160127133722) do
   add_foreign_key "beacon_configs", "beacons"
   add_foreign_key "beacon_proximity_fields", "beacons"
   add_foreign_key "beacons", "accounts", name: "index_beacons_on_account_id"
+  add_foreign_key "coupon_attachments", "coupons"
   add_foreign_key "mobile_devices", "users"
   add_foreign_key "rpush_apps", "applications"
+  add_foreign_key "schedules", "accounts"
+  add_foreign_key "schedules", "beacons"
   add_foreign_key "users", "applications"
 end

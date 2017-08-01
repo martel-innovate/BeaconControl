@@ -20,8 +20,11 @@ class Ability
       can :manage, ApplicationSetting, application: { account_id: user.account_id }
       can :manage, Zone, account_id: user.account_id
       can :manage, Beacon, account_id: user.account_id
+      can :manage, Geofence, account_id: user.account_id
+      can :manage, Schedule, account_id: user.account_id
       can :manage, Extension
       can :create, Activity
+      can :create, Action
       can :manage, Activity, trigger: { application: { account_id: user.account_id } }
       can :manage, BeaconConfig
     when 'beacon_manager'
