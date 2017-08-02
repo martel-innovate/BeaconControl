@@ -23,7 +23,7 @@ class Admin < ActiveRecord::Base
            :confirmable, :recoverable, :password_archivable
   end
 
-  enum role: [:admin, :beacon_manager]
+  enum role: [:admin, :beacon_manager, :customer]
 
   validates :role,
     presence: true,
@@ -38,7 +38,11 @@ class Admin < ActiveRecord::Base
     foreign_key: 'resource_owner_id',
     dependent:   :destroy
 
+  has_many :customers_applications, foreign_key: :customer_id, class_name: 'ApplicationsCustomer'
+  has_many :customer_applications, through: :customers_applications, source: :application
+
   delegate :applications, :test_application, :triggers, :activities, to: :account
+
 
   #
   # Includes UuidField module functionality.

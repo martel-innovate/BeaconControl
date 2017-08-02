@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727144401) do
+ActiveRecord::Schema.define(version: 20170802144629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,16 @@ ActiveRecord::Schema.define(version: 20170727144401) do
   end
 
   add_index "applications_beacons", ["application_id", "beacon_id"], name: "applications_beacons_index", using: :btree
+
+  create_table "applications_customers", force: :cascade do |t|
+    t.integer  "applications_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "customer_id"
+  end
+
+  add_index "applications_customers", ["applications_id"], name: "index_applications_customers_on_applications_id", using: :btree
+  add_index "applications_customers", ["customer_id"], name: "index_applications_customers_on_customer_id", using: :btree
 
   create_table "applications_zones", force: :cascade do |t|
     t.integer "application_id"
@@ -542,6 +552,7 @@ ActiveRecord::Schema.define(version: 20170727144401) do
 
   add_foreign_key "admins", "accounts"
   add_foreign_key "applications", "accounts"
+  add_foreign_key "applications_customers", "admins", column: "customer_id"
   add_foreign_key "beacon_configs", "beacons"
   add_foreign_key "beacon_proximity_fields", "beacons"
   add_foreign_key "beacons", "accounts", name: "index_beacons_on_account_id"
