@@ -59,6 +59,7 @@ BeaconControl::Application.routes.draw do
     end
   end
 
+  resources :customers, except: [:new, :edit]
   resource :profile, only: [:update]
 
   resources :admins, except: [:show], path: 'users' do

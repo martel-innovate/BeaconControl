@@ -9,6 +9,7 @@
 class RootController < ApplicationController
   protect_from_forgery with: :exception
 
+  before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :authenticate_root!
 
   layout "root"
@@ -19,5 +20,11 @@ class RootController < ApplicationController
     authenticate_or_request_with_http_basic do |username, password|
       username == AppConfig.root[:username] && password == AppConfig.root[:password]
     end
+  end
+
+  def configure_permitted_parameters
+    added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
+    devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
+    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
 end

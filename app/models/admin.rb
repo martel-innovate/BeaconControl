@@ -23,6 +23,12 @@ class Admin < ActiveRecord::Base
            :confirmable, :recoverable, :password_archivable
   end
 
+  attr_accessor :login
+  validates :username,
+    :uniqueness => {
+      :case_sensitive => false
+    }
+
   enum role: [:admin, :beacon_manager, :customer]
 
   validates :role,
@@ -32,6 +38,8 @@ class Admin < ActiveRecord::Base
   belongs_to :account
   has_many :zones,   foreign_key: :manager_id, dependent: :nullify
   has_many :beacons, foreign_key: :manager_id, dependent: :nullify
+  has_one :contact
+  has_one :address
 
   has_many :access_tokens, -> { where(scopes: 'admin') },
     class_name:  'Doorkeeper::AccessToken',
@@ -76,6 +84,18 @@ class Admin < ActiveRecord::Base
   def after_database_authentication
     update_correlation_id_from_current_thread
     save
+  end
+
+  def login=(login)
+    @login = login
+  end
+
+  def login
+    @login || self.username || self.email
+  end
+
+  def to_customer_json
+    self.to_json(include: [:address, contact: { include: :logo }])
   end
 
   protected
