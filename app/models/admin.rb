@@ -23,7 +23,13 @@ class Admin < ActiveRecord::Base
            :confirmable, :recoverable, :password_archivable
   end
 
-  enum role: [:admin, :beacon_manager]
+  attr_accessor :login
+  validates :username,
+    :uniqueness => {
+      :case_sensitive => false
+    }
+
+  enum role: [:admin, :beacon_manager, :customer]
 
   validates :role,
     presence: true,
@@ -32,13 +38,19 @@ class Admin < ActiveRecord::Base
   belongs_to :account
   has_many :zones,   foreign_key: :manager_id, dependent: :nullify
   has_many :beacons, foreign_key: :manager_id, dependent: :nullify
+  has_one :contact, dependent: :destroy
+  has_one :address, dependent: :destroy
 
   has_many :access_tokens, -> { where(scopes: 'admin') },
     class_name:  'Doorkeeper::AccessToken',
     foreign_key: 'resource_owner_id',
     dependent:   :destroy
 
+  has_many :customers_applications, foreign_key: :customer_id, class_name: 'ApplicationsCustomer', dependent: :destroy
+  has_many :customer_applications, through: :customers_applications, source: :application
+
   delegate :applications, :test_application, :triggers, :activities, to: :account
+
 
   #
   # Includes UuidField module functionality.
@@ -72,6 +84,24 @@ class Admin < ActiveRecord::Base
   def after_database_authentication
     update_correlation_id_from_current_thread
     save
+  end
+
+  def login=(login)
+    @login = login
+  end
+
+  def login
+    @login || self.username || self.email
+  end
+
+  def self.find_for_database_authentication warden_conditions
+    conditions = warden_conditions.dup
+    login = conditions.delete(:login)
+    where(conditions).where(["lower(username) = :value OR lower(email) = :value", {value: login.strip.downcase}]).first
+  end
+
+  def to_customer_json
+    self.to_json(include: [:address, :customers_applications, contact: { include: :logo }])
   end
 
   protected

@@ -156,6 +156,38 @@ en:
       title: 'Beacons'
       action: 'Add Beacon'
 
+  customers:
+    form:
+      unassigned: 'Unassigned'
+      save: 'Save '
+      cancel: 'Cancel'
+      test_notification: '(will be displayed for the ContextOS App users)'
+      uuid: 'UUID'
+      proximity: 'UUID'
+      major: Major
+      minor: Minor
+      namespace: Namespace
+      instance: Instance ID
+      url: URL
+      proximity_tooltip: UUID
+
+    index:
+      title:   'Customers'
+      add_new: 'Add Customer'
+      options: 'Options'
+      details: 'Details'
+      batch_delete: 'Delete Customers'
+
+      unassigned_zone: 'Unassigned'
+      unassigned_floor: 'N/A'
+      select_zone_prompt: 'Set zone'
+      select_floor_prompt: 'Set floor'
+      search: 'Search...'
+
+    modal:
+      title: 'Warning!'
+      body: 'Are you sure you want to delete customer?'
+
   schedules:
     template: 'Template'
     edit:
@@ -341,6 +373,7 @@ en:
         zones: 'Zones'
         geofences: 'Geofences'
         schedules: 'Schedules'
+        customers: "Customers"
         map: 'Map'
         extensions_marketplace: 'Add-ons'
         users: 'Users'
