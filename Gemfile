@@ -117,6 +117,8 @@ gem 'premailer-rails'
 
 gem 'kaminari'
 
+gem 'httparty'
+
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'

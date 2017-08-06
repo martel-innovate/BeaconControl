@@ -21,8 +21,8 @@ class NotificationsController < AdminController
 
   private
 
-    def notification_params
-      params.require(:notification).permit(:application_id, :title, :message)
-    end
+  def notification_params
+    params.require(:notification).permit(:application_id, :title, :message)
+  end
 end
 

@@ -1,4 +1,9 @@
 <%= simple_form_for(@notification, html: { class: %W[notification-form with-sticky-footer] }) do |f| %>
+  <% if @notification.errors[:fcm].present? %>
+    <div class="alert alert-warning" role="alert">
+      <p><%= @notification.errors[:fcm].first %></p>
+    </div>
+  <% end %>
   <div class="row form-container">
     <div class="col-md-6 first-column">
       <div class="control-group">
