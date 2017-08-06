@@ -89,6 +89,9 @@
             <% if can? :manage, Application %>
               <li><%= active_link_to t('.menu.applications'), main_app.applications_path %></li>
             <% end %>
+            <% if can? :manage, Admin %>
+              <li><%= active_link_to t('.menu.customers'), main_app.customers_path, data: walkthrough_data(3, :schedules) %></li>
+            <% end %>
             <% if (can? :manage, Admin) && AppConfig.user_management %>
               <li><%= active_link_to t('.menu.users'), main_app.admins_path %></li>
             <% end %>

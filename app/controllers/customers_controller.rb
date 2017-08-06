@@ -24,12 +24,14 @@ class CustomersController < AdminController
   end
 
   def update_password
-    find_customer
-    @customer.assign_attributes(
-      password: params[:password],
-      password_confirmation: params[:password_confirmation]
-    )
-    save_customer
+    @customer = Admin.find_by_id_and_role(params[:customer_id], 2)
+    @customer.assign_attributes(password: Admin.generate_password)
+    if @customer.save
+      CustomDeviseMailer.resend_new_password(@customer).deliver
+      render json: @customer.to_customer_json
+    else
+      render json: { errors: @customer.errors }, status: 422
+    end
   end
 
   private
@@ -38,9 +40,8 @@ class CustomersController < AdminController
     @customer = Admin.new(
       role: :customer,
       email: params[:email],
-      username: params[:username],
-      password: params[:password],
-      password_confirmation: params[:password_confirmation],
+      username: params[:email],
+      password: Admin.generate_password,
       account: current_admin.account
     )
     build_contact
