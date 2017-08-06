@@ -86,6 +86,7 @@
             <li><%= active_link_to t('.menu.schedules'), main_app.schedules_path %></li>
             <li><%= active_link_to t('.menu.zones'), main_app.zones_path %></li>
             <li><%= active_link_to t('.menu.extensions_marketplace'), main_app.extensions_marketplace_index_path %></li>
+            <li><%= active_link_to t('.menu.notifications'), main_app.notifications_path %></li>
             <% if can? :manage, Application %>
               <li><%= active_link_to t('.menu.applications'), main_app.applications_path %></li>
             <% end %>
@@ -125,6 +126,7 @@
             <% if can? :manage, Admin %>
               <li><%= active_link_to bos_icon(:customer, t('.menu.customers')), main_app.customers_path, data: walkthrough_data(3, :schedules) %></li>
             <% end %>
+            <li><%= active_link_to awesome_icon(:bell, t('.menu.notifications')), main_app.notifications_path %></li>
             <% if can? :manage, Application %>
               <li><%= active_link_to bos_icon(:application, t('.menu.applications')), main_app.applications_path, data: walkthrough_data(4, :applications) %></li>
             <% end %>
