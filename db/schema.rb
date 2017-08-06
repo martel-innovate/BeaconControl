@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170805133422) do
+ActiveRecord::Schema.define(version: 20170806155234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20170805133422) do
     t.datetime "updated_at",                 null: false
     t.integer  "account_id"
     t.boolean  "test",       default: false
+    t.string   "fcm_key"
   end
 
   add_index "applications", ["account_id"], name: "index_applications_on_account_id", using: :btree
@@ -406,6 +407,16 @@ ActiveRecord::Schema.define(version: 20170805133422) do
   add_index "mobile_devices", ["active"], name: "index_mobile_devices_on_active", using: :btree
   add_index "mobile_devices", ["user_id"], name: "index_mobile_devices_on_user_id", using: :btree
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "application_id"
+    t.string   "title"
+    t.text     "message"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "notifications", ["application_id"], name: "index_notifications_on_application_id", using: :btree
+
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer  "resource_owner_id", null: false
     t.integer  "application_id",    null: false
@@ -590,6 +601,7 @@ ActiveRecord::Schema.define(version: 20170805133422) do
   add_foreign_key "beacons", "accounts", name: "index_beacons_on_account_id"
   add_foreign_key "coupon_attachments", "coupons"
   add_foreign_key "mobile_devices", "users"
+  add_foreign_key "notifications", "applications"
   add_foreign_key "rpush_apps", "applications"
   add_foreign_key "schedules", "accounts"
   add_foreign_key "schedules", "beacons"

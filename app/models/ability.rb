@@ -3,7 +3,7 @@
 # All rights reserved.
 #
 # This source code is licensed under the BSD 3-Clause License found in the
-# LICENSE.txt file in the root directory of this source tree. 
+# LICENSE.txt file in the root directory of this source tree.
 ###
 
 class Ability
@@ -27,6 +27,7 @@ class Ability
       can :create, Action
       can :manage, Activity, trigger: { application: { account_id: user.account_id } }
       can :manage, BeaconConfig
+      can :manage, Notification
     when 'beacon_manager'
       can [:read, :update], Admin, id: user.id
       can :manage, Zone, manager_id: user.id

@@ -188,6 +188,16 @@ en:
       title: 'Warning!'
       body: 'Are you sure you want to delete customer?'
 
+  notifications:
+    form:
+      send: 'Send'
+      cancel: 'Cancel'
+    index:
+      title:    'Push Notifications'
+      add_new:  'Add New Push Notification'
+    new:
+      title: 'New push notification'
+
   schedules:
     template: 'Template'
     edit:
@@ -374,6 +384,7 @@ en:
         geofences: 'Geofences'
         schedules: 'Schedules'
         customers: "Customers"
+        notifications: Notifications
         map: 'Map'
         extensions_marketplace: 'Add-ons'
         users: 'Users'
