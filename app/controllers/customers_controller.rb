@@ -22,6 +22,16 @@ class CustomersController < AdminController
       end
     end
   end
+
+  def update_password
+    find_customer
+    @customer.assign_attributes(
+      password: params[:password],
+      password_confirmation: params[:password_confirmation]
+    )
+    save_customer
+  end
+
   private
 
   def build_customer
@@ -55,8 +65,12 @@ class CustomersController < AdminController
     )
   end
 
-  def edit_customer
+  def find_customer
     @customer = Admin.find_by_id_and_role(params[:id], 2)
+  end
+
+  def edit_customer
+    find_customer
     build_contact
     build_address
     build_applications_customers

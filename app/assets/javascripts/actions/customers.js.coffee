@@ -141,7 +141,9 @@ $ ->
       $username = $('input[name="username"]')
       $password = $('input[name="password"]')
       $passwordConfirmation = $('input[name="password_confirmation"]')
-      if id
+      if id && !$('.address').is(":visible")
+        validatePrecense($password, 'password') and validatePrecense($passwordConfirmation, 'password confirmation') and validatePassword($password, $passwordConfirmation)
+      else if id
         validatePrecense($customerName, 'customer name')
       else
         validatePrecense($customerName, 'customer name') and validatePrecense($username, 'username') and validatePrecense($password, 'password') and validatePrecense($passwordConfirmation, 'password confirmation') and validatePassword($password, $passwordConfirmation)
@@ -179,7 +181,10 @@ $ ->
       url = undefined
       formData = new FormData($(this)[0])
       customerId = $customerId.val()
-      if customerId != ''
+      if customerId != '' && !$('.address').is(":visible")
+        url = customerURL + customerId + '/update_password';
+        formData.append('_method', 'put')
+      else if customerId != ''
         url = customerURL + customerId
         formData.append('_method', 'put')
       else
@@ -191,8 +196,7 @@ $ ->
           data: formData
           async: false
           success: (data) ->
-            form[0].reset()
-            $('#applications').selectpicker 'val', []
+            $('#cancel').click()
             fetchTable 1
             return
           error: (errors) ->
@@ -233,14 +237,34 @@ $ ->
           data: '_method': 'delete'
           complete: ->
             fetchTable 1
-            form[0].reset()
-            $('#applications').selectpicker 'val', []
-            $('.user').show()
+            $('#cancel').click()
             return
       e.preventDefault()
       return
+    $('table').on 'click', '.reset-password', (e) ->
+      $('input[name="id"]').val $(this).data('id')
+      $('.user').show()
+      $('.username').hide()
+      $('.contact').hide()
+      $('.address').hide()
+      $('.applications').hide()
+      $('.contact-label').hide()
+      $('.customer_name').hide()
+      $('.logo').hide()
+      e.preventDefault()
+      return
+
     fetchTable 1
     $('#cancel').click (e) ->
+      $('.username').show()
+      $('.user').show()
+      $('.contact').show()
+      $('.address').show()
+      $('.applications').show()
+      $('.contact-label').show()
+      $('.customer_name').show()
+      $('.logo').show()
+
       form[0].reset()
       $('#applications').selectpicker 'val', []
       $('.user').show()

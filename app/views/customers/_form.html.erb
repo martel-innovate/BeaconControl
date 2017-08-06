@@ -5,12 +5,12 @@
 		<input type="file" name="logo" title="Click to add Files" accept="image/png, image/jpeg">
     <p class="form-control-feedback">Only .jpeg and .png are accepted</p>
   </div>
-  <div class="form-group">
+  <div class="form-group customer_name">
     <label for="kundenname">Kundenname</label>
     <input class="form-control" type="text" name="customer_name" />
     <p class="form-control-feedback"></p>
   </div>
-  <div class="form-group">
+  <div class="form-group address">
     <label for="address">Address</label>
     <div class="form-group-inline">
       <div class="col-md-4">
@@ -54,7 +54,7 @@
       <p class="form-control-feedback"></p>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group applications">
     <label for="application">Application</label>
     <%=
       select_tag(
@@ -66,7 +66,7 @@
     %>
   </div>
   <div class="user">
-    <div class="form-group">
+    <div class="form-group username">
       <label for="username">Benutzername</label>
       <input class="form-control" type="text" name="username" id="username"/>
       <p class="form-control-feedback"></p>
