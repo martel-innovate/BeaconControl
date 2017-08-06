@@ -188,7 +188,6 @@ en:
       title: 'Warning!'
       body: 'Are you sure you want to delete customer?'
 
->>>>>>> upstream/master
   schedules:
     template: 'Template'
     edit:
