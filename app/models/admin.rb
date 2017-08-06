@@ -104,6 +104,10 @@ class Admin < ActiveRecord::Base
     self.to_json(include: [:address, :customers_applications, contact: { include: :logo }])
   end
 
+  def self.generate_password
+    (0...8).map { (65 + rand(26)).chr }.join
+  end
+
   protected
 
   def password_required?

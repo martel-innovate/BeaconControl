@@ -15,15 +15,11 @@ $ ->
   pagination = undefined
   showError = undefined
   updatePagination = undefined
-  validateCustomer = undefined
-  validatePassword = undefined
   validatePrecense = undefined
   $customerId = undefined
   $logoInput = undefined
   createRow = undefined
   customerContainer = undefined
-  customerURL = undefined
-  customers = undefined
   fetchTable = undefined
   fetchURL = undefined
   form = undefined
@@ -32,12 +28,10 @@ $ ->
   showError = undefined
   updatePagination = undefined
   validateCustomer = undefined
-  validatePassword = undefined
   validatePrecense = undefined
 
   if $('#customer').length and $('.contact').length
     bindEditForm = (customer) ->
-      $('.user').hide()
       $('input[name="id"]').val customer.id
       $('input[name="email"]').val customer.email
       $('input[name="customer_name"]').val customer.contact.name
@@ -67,7 +61,6 @@ $ ->
     hideError = undefined
     showError = undefined
     validateCustomer = undefined
-    validatePassword = undefined
     validatePrecense = undefined
 
     createRow = (customer) ->
@@ -116,37 +109,10 @@ $ ->
         showError 'Please enter ' + fieldName, $input
         false
 
-    validatePassword = ($password, $passwordConfirmation) ->
-      if $password.val() != $passwordConfirmation.val()
-        showError 'Your password and confirmation password do not match', $passwordConfirmation
-        false
-      else
-        hideError $passwordConfirmation
-        true
-
     validateCustomer = (id) ->
       $customerName = undefined
-      $password = undefined
-      $passwordConfirmation = undefined
-      $username = undefined
-      $customerName = undefined
-      $password = undefined
-      $passwordConfirmation = undefined
-      $username = undefined
-      $customerName = undefined
-      $password = undefined
-      $passwordConfirmation = undefined
-      $username = undefined
       $customerName = $('input[name="customer_name"]')
-      $username = $('input[name="username"]')
-      $password = $('input[name="password"]')
-      $passwordConfirmation = $('input[name="password_confirmation"]')
-      if id && !$('.address').is(":visible")
-        validatePrecense($password, 'password') and validatePrecense($passwordConfirmation, 'password confirmation') and validatePassword($password, $passwordConfirmation)
-      else if id
-        validatePrecense($customerName, 'customer name')
-      else
-        validatePrecense($customerName, 'customer name') and validatePrecense($username, 'username') and validatePrecense($password, 'password') and validatePrecense($passwordConfirmation, 'password confirmation') and validatePassword($password, $passwordConfirmation)
+      validatePrecense($customerName, 'customer name')
 
     $('.logo input').ezdz
       text: 'Drop images here or click to upload'
@@ -170,21 +136,13 @@ $ ->
     $('#applications').selectpicker()
     $.ajaxSetup headers: 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     form.submit ->
-      customerId = undefined
       formData = undefined
-      url = undefined
       customerId = undefined
-      formData = undefined
-      url = undefined
-      customerId = undefined
-      formData = undefined
-      url = undefined
+
       formData = new FormData($(this)[0])
       customerId = $customerId.val()
-      if customerId != '' && !$('.address').is(":visible")
-        url = customerURL + customerId + '/update_password';
-        formData.append('_method', 'put')
-      else if customerId != ''
+
+      if customerId != ''
         url = customerURL + customerId
         formData.append('_method', 'put')
       else
@@ -242,22 +200,22 @@ $ ->
       e.preventDefault()
       return
     $('table').on 'click', '.reset-password', (e) ->
-      $('input[name="id"]').val $(this).data('id')
-      $('.user').show()
-      $('.username').hide()
-      $('.contact').hide()
-      $('.address').hide()
-      $('.applications').hide()
-      $('.contact-label').hide()
-      $('.customer_name').hide()
-      $('.logo').hide()
+      $('input[name="id"]').val customer.id
+      r = confirm("Are you sure to reset password this customer?");
+      if r == true
+        $.ajax
+          type: 'POST'
+          url: customerURL + $(this).data('id') + '/update_password'
+          dataType: 'json'
+          data: '_method': 'put'
+          complete: ->
+            return
+
       e.preventDefault()
       return
 
     fetchTable 1
     $('#cancel').click (e) ->
-      $('.username').show()
-      $('.user').show()
       $('.contact').show()
       $('.address').show()
       $('.applications').show()
@@ -267,7 +225,6 @@ $ ->
 
       form[0].reset()
       $('#applications').selectpicker 'val', []
-      $('.user').show()
       e.preventDefault()
   return
 return
