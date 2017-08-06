@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727144401) do
+ActiveRecord::Schema.define(version: 20170805133422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,17 @@ ActiveRecord::Schema.define(version: 20170727144401) do
     t.string   "scheme"
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.string   "street"
+    t.string   "zip"
+    t.string   "city"
+    t.integer  "admin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "addresses", ["admin_id"], name: "index_addresses_on_admin_id", using: :btree
+
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -71,12 +82,14 @@ ActiveRecord::Schema.define(version: 20170727144401) do
     t.integer  "role",                   default: 0
     t.string   "correlation_id"
     t.boolean  "walkthrough",            default: false
+    t.string   "username"
   end
 
   add_index "admins", ["account_id"], name: "index_admins_on_account_id", using: :btree
   add_index "admins", ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true, using: :btree
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
+  add_index "admins", ["username"], name: "index_admins_on_username", unique: true, using: :btree
 
   create_table "application_extensions", force: :cascade do |t|
     t.integer  "application_id"
@@ -117,6 +130,16 @@ ActiveRecord::Schema.define(version: 20170727144401) do
   end
 
   add_index "applications_beacons", ["application_id", "beacon_id"], name: "applications_beacons_index", using: :btree
+
+  create_table "applications_customers", force: :cascade do |t|
+    t.integer  "applications_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "customer_id"
+  end
+
+  add_index "applications_customers", ["applications_id"], name: "index_applications_customers_on_applications_id", using: :btree
+  add_index "applications_customers", ["customer_id"], name: "index_applications_customers_on_customer_id", using: :btree
 
   create_table "applications_zones", force: :cascade do |t|
     t.integer "application_id"
@@ -176,6 +199,17 @@ ActiveRecord::Schema.define(version: 20170727144401) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "position"
+    t.string   "phone_number"
+    t.integer  "admin_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "contacts", ["admin_id"], name: "index_contacts_on_admin_id", using: :btree
+
   create_table "coupon_attachments", force: :cascade do |t|
     t.integer  "coupon_id"
     t.string   "file"
@@ -227,6 +261,15 @@ ActiveRecord::Schema.define(version: 20170727144401) do
   end
 
   add_index "custom_attributes", ["activity_id"], name: "index_custom_attributes_on_activity_id", using: :btree
+
+  create_table "customer_logos", force: :cascade do |t|
+    t.string   "file"
+    t.integer  "contact_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "customer_logos", ["contact_id"], name: "index_customer_logos_on_contact_id", using: :btree
 
   create_table "ext_analytics_beacons_dwell_time_aggregations", force: :cascade do |t|
     t.integer "ext_analytics_dwell_time_aggregation_id", null: false

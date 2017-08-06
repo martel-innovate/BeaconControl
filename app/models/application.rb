@@ -23,6 +23,8 @@ class Application < ActiveRecord::Base
 
   has_many :application_settings, dependent: :destroy
 
+  has_many :customers_applications, foreign_key: :application_id, class_name: 'ApplicationsCustomer'
+
   # Private
   has_many :rpush_apps, class_name: 'Rpush::Client::ActiveRecord::App'
 

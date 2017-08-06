@@ -115,6 +115,8 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'premailer-rails'
 
+gem 'kaminari'
+
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'

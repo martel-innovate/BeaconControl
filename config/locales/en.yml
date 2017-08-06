@@ -99,7 +99,7 @@ en:
     shared:
 
       layout:
-        email: "your email"
+        email: "your email or username"
         password: "password"
         password_confirmation: "confirm password"
         invitation_code: "Invitation code"

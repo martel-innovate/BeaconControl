@@ -59,6 +59,9 @@ BeaconControl::Application.routes.draw do
     end
   end
 
+  resources :customers, except: [:new, :edit] do
+    put 'update_password' => 'customers#update_password'
+  end
   resource :profile, only: [:update]
 
   resources :admins, except: [:show], path: 'users' do

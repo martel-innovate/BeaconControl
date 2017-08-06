@@ -1,0 +1,37 @@
+<%###
+# Copyright (c) 2015, Upnext Technologies Sp. z o.o.
+# All rights reserved.
+#
+# This source code is licensed under the BSD 3-Clause License found in the
+# LICENSE.txt file in the root directory of this source tree. 
+###%>
+
+<% content_for :header_breadcrumbs do %>
+  <span><%= t('.title') %></span>
+<% end %>
+
+<div class="beacons-table linked-rows">
+  <div class="table-header">
+    <%= render "customers/form" %>
+  </div>
+  <div class="table-header">
+    <table class="table table-list table-striped live-search-table" data-search-input="#search_table_beacon_name">
+      <thead>
+        <tr>
+          <th>Kundenname</th>
+          <th>Telefon</th>
+          <th>E-Mail</th>
+          <th>Benutzername</th>
+          <th>Detail</th>
+          <th>Passwort zurücksetzen</th>
+          <th>Löchen</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+		<p id="pagination"></p>
+  </div>
+</div>
+
+<%= prompt_modal(t('beacons.modal.title'), t('beacons.modal.body')) %>
