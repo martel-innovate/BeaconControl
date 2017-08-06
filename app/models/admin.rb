@@ -38,15 +38,15 @@ class Admin < ActiveRecord::Base
   belongs_to :account
   has_many :zones,   foreign_key: :manager_id, dependent: :nullify
   has_many :beacons, foreign_key: :manager_id, dependent: :nullify
-  has_one :contact
-  has_one :address
+  has_one :contact, dependent: :destroy
+  has_one :address, dependent: :destroy
 
   has_many :access_tokens, -> { where(scopes: 'admin') },
     class_name:  'Doorkeeper::AccessToken',
     foreign_key: 'resource_owner_id',
     dependent:   :destroy
 
-  has_many :customers_applications, foreign_key: :customer_id, class_name: 'ApplicationsCustomer'
+  has_many :customers_applications, foreign_key: :customer_id, class_name: 'ApplicationsCustomer', dependent: :destroy
   has_many :customer_applications, through: :customers_applications, source: :application
 
   delegate :applications, :test_application, :triggers, :activities, to: :account
@@ -94,8 +94,14 @@ class Admin < ActiveRecord::Base
     @login || self.username || self.email
   end
 
+  def self.find_for_database_authentication warden_conditions
+    conditions = warden_conditions.dup
+    login = conditions.delete(:login)
+    where(conditions).where(["lower(username) = :value OR lower(email) = :value", {value: login.strip.downcase}]).first
+  end
+
   def to_customer_json
-    self.to_json(include: [:address, contact: { include: :logo }])
+    self.to_json(include: [:address, :customers_applications, contact: { include: :logo }])
   end
 
   protected

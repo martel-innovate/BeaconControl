@@ -585,7 +585,6 @@ ActiveRecord::Schema.define(version: 20170805133422) do
 
   add_foreign_key "admins", "accounts"
   add_foreign_key "applications", "accounts"
-  add_foreign_key "applications_customers", "admins", column: "customer_id"
   add_foreign_key "beacon_configs", "beacons"
   add_foreign_key "beacon_proximity_fields", "beacons"
   add_foreign_key "beacons", "accounts", name: "index_beacons_on_account_id"

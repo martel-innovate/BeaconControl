@@ -3,11 +3,12 @@ class CustomersController < AdminController
 
   def create
     build_customer
-    if @customer.save
-      render json: @customer.to_customer_json
-    else
-      render json: { errors: @customer.errors }, status: 422
-    end
+    save_customer
+  end
+
+  def update
+    edit_customer
+    save_customer
   end
 
   def index
@@ -54,12 +55,28 @@ class CustomersController < AdminController
     )
   end
 
+  def edit_customer
+    @customer = Admin.find_by_id_and_role(params[:id], 2)
+    build_contact
+    build_address
+    build_applications_customers
+  end
+
+  def save_customer
+    if @customer.save
+      render json: @customer.to_customer_json
+    else
+      render json: { errors: @customer.errors }, status: 422
+    end
+  end
+
   def build_applications_customers
-    params[:applications].each { |i| @customer.customers_applications.build(applications_id: i) } if params[:application]
+    @customer.customers_applications.delete_all if params[:id]
+    params[:applications].each { |i| @customer.customers_applications.build(applications_id: i) } if params[:applications]
   end
 
   def resource_class
-    Admin.includes(:address, contact: [:logo]).where(role: 2)
+    Admin.includes(:address, :customers_applications, contact: [:logo]).where(role: 2)
   end
 
   def collection_by_page
