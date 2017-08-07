@@ -3,7 +3,7 @@
 # All rights reserved.
 #
 # This source code is licensed under the BSD 3-Clause License found in the
-# LICENSE.txt file in the root directory of this source tree. 
+# LICENSE.txt file in the root directory of this source tree.
 ###
 
 require_relative '../lib/app_status'
@@ -62,6 +62,9 @@ BeaconControl::Application.routes.draw do
   resources :customers, except: [:new, :edit] do
     put 'update_password' => 'customers#update_password'
   end
+
+  resources :notifications, only: [:new, :index, :create]
+
   resource :profile, only: [:update]
 
   resources :admins, except: [:show], path: 'users' do

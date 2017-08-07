@@ -12,9 +12,7 @@ $ ->
   fetchURL = undefined
   form = undefined
   hideError = undefined
-  pagination = undefined
   showError = undefined
-  updatePagination = undefined
   validatePrecense = undefined
   $customerId = undefined
   $logoInput = undefined
@@ -24,9 +22,7 @@ $ ->
   fetchURL = undefined
   form = undefined
   hideError = undefined
-  pagination = undefined
   showError = undefined
-  updatePagination = undefined
   validateCustomer = undefined
   validatePrecense = undefined
 
@@ -66,19 +62,12 @@ $ ->
     createRow = (customer) ->
       '<tr>' + '<td>' + customer.contact.name + '</td>' + '<td>' + customer.contact.phone_number + '</td>' + '<td>' + customer.email + '</td>' + '<td>' + customer.username + '</td>' + '<td><a class="edit" href="#" data-id="' + customer.id + '">Detail</a></td>' + '<td><a class="reset-password" href="#" data-id="' + customer.id + '">Reset Password</a></td>' + '<td><a class="delete" href="#" data-id="' + customer.id + '">Lochen</a></td>' + '</tr>'
 
-    updatePagination = (totalPages, defaultPages) ->
-      pagination.bootpag
-        page: defaultPages
-        total: totalPages
-      return
-
-    fetchTable = (page) ->
-      $.get fetchURL + '?page=' + page, (data) ->
+    fetchTable = () ->
+      $.get fetchURL, (data) ->
         window.customers = data.customers
         window.customers[0][1] = data.customers[0][1].map((e) ->
           JSON.parse e
         )
-        updatePagination data.customers[1][1], page
         customerContainer.html data.customers[0][1].reduce(((total, customer) ->
           total + createRow(customer)
         ), '')
@@ -168,14 +157,6 @@ $ ->
       false
     fetchURL = '/customers.json'
     customerContainer = $('tbody')
-    pagination = $('#pagination').bootpag(
-      total: 1
-      page: 1
-      maxVisible: 5
-      leaps: true).on('page', (event, num) ->
-      fetchTable num
-      return
-    )
     $('table').on 'click', '.edit', (e) ->
       customer = undefined
       id = undefined
