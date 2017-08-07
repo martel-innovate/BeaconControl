@@ -16,8 +16,7 @@ class CustomersController < AdminController
       format.html
       format.json do
         render json: {
-          customers: collection_by_page.map {|c| c.to_customer_json },
-          total_pages: collection_by_page.total_pages
+          customers: collection.map {|c| c.to_customer_json }
         }
       end
     end
@@ -92,9 +91,5 @@ class CustomersController < AdminController
 
   def resource_class
     Admin.includes(:address, :customers_applications, contact: [:logo]).where(role: 2)
-  end
-
-  def collection_by_page
-    collection.page(params[:page]).per(5) if params[:page]
   end
 end
