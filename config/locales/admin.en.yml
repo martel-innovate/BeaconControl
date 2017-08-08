@@ -187,6 +187,8 @@ en:
     modal:
       title: 'Warning!'
       body: 'Are you sure you want to delete customer?'
+    reset_password:
+      body: 'Are you sure you want to reset password of this customer?'
 
   notifications:
     form:
@@ -410,6 +412,9 @@ en:
       select: 'Add'
       change: 'Change'
       remove: 'Remove'
+
+    reset_password_modal:
+      reset: 'Reset'
 
   templates:
     template_1: 'Template with logo'

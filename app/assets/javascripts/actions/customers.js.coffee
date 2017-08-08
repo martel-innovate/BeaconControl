@@ -27,6 +27,33 @@ $ ->
   validatePrecense = undefined
 
   if $('#customer').length and $('.contact').length
+    deleteBtn = $('#destroy-modal .delete-action')
+    deleteBtn.after(deleteBtn.clone().removeClass('delete-action').addClass('dup-delete-action').removeAttr('data-method'))
+    deleteBtn.hide()
+    $('#destroy-modal .dup-delete-action').click (e) ->
+      $.ajax
+        type: 'POST'
+        url: customerURL + window.deletingId
+        dataType: 'json'
+        data: '_method': 'delete'
+        complete: ->
+          $('#destroy-modal').modal('hide')
+          fetchTable 1
+          $('#cancel').click()
+          return
+      e.preventDefault()
+      return
+
+    $('#reset-password-modal .reset-action').click (e) ->
+      $.ajax
+        type: 'POST'
+        url: customerURL + window.resetPasswordId + '/update_password'
+        dataType: 'json'
+        data: '_method': 'put'
+        complete: ->
+          $('#reset-password-modal').modal('hide')
+          return
+
     bindEditForm = (customer) ->
       $('input[name="id"]').val customer.id
       $('input[name="email"]').val customer.email
@@ -60,7 +87,12 @@ $ ->
     validatePrecense = undefined
 
     createRow = (customer) ->
-      '<tr>' + '<td>' + customer.contact.name + '</td>' + '<td>' + customer.contact.phone_number + '</td>' + '<td>' + customer.email + '</td>' + '<td>' + customer.username + '</td>' + '<td><a class="edit" href="#" data-id="' + customer.id + '">Detail</a></td>' + '<td><a class="reset-password" href="#" data-id="' + customer.id + '">Reset Password</a></td>' + '<td><a class="delete" href="#" data-id="' + customer.id + '">Lochen</a></td>' + '</tr>'
+      '<tr>' + '<td>' + customer.contact.name + '</td>' + '<td>' + customer.contact.phone_number + '</td>' +
+      '<td>' + customer.email + '</td>' + '<td>' + customer.username + '</td>' +
+      '<td class="text-center"><a class="edit btn btn-default" href="#" data-id="' + customer.id +
+      '"><i class="fa fa-edit"></i></a></td>' + '<td class="text-center"><a class="reset-password btn btn-warning" href="#" data-id="' +
+      customer.id + '"><i class="fa fa-rotate-left"></i></a></td>' + '<td class="text-center"><a class="delete btn btn-danger" href="#" data-id="' +
+      customer.id + '"><i class="fa fa-remove"></i></a></td>' + '</tr>'
 
     fetchTable = () ->
       $.get fetchURL, (data) ->
@@ -90,6 +122,18 @@ $ ->
       $input.closest('.form-group').removeClass 'has-error'
       return
 
+    validateEmail = (email) ->
+      re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      re.test email
+
+    validateEmailInput = ($input) ->
+      if validateEmail($input.val())
+        hideError $input
+        true
+      else
+        showError 'Please enter valid email format', $input
+        false
+
     validatePrecense = ($input, fieldName) ->
       if $input.val() != ''
         hideError $input
@@ -101,7 +145,11 @@ $ ->
     validateCustomer = (id) ->
       $customerName = undefined
       $customerName = $('input[name="customer_name"]')
-      validatePrecense($customerName, 'customer name')
+      $phoneNumber = $('input[name="phone_number"]')
+      $email = $('input[name="email"]')
+      validatePrecense($customerName, 'customer name') &&
+      validatePrecense($phoneNumber, 'phone number') &&
+      validateEmailInput($email)
 
     $('.logo input').ezdz
       text: 'Drop images here or click to upload'
@@ -158,8 +206,10 @@ $ ->
     fetchURL = '/customers.json'
     customerContainer = $('tbody')
     $('table').on 'click', '.edit', (e) ->
-      customer = undefined
-      id = undefined
+      $('.add-customer').hide()
+      $('#customer').show()
+      $('.table').hide()
+
       id = $(this).data('id')
       customer = window.customers[0][1].find((e) ->
         e.id == id
@@ -167,36 +217,28 @@ $ ->
       bindEditForm customer
       return
     $('table').on 'click', '.delete', (e) ->
-      r = confirm("Are you sure to delete this customer?");
-      if r == true
-        $.ajax
-          type: 'POST'
-          url: customerURL + $(this).data('id')
-          dataType: 'json'
-          data: '_method': 'delete'
-          complete: ->
-            fetchTable 1
-            $('#cancel').click()
-            return
+      $('#destroy-modal').modal('show')
+      window.deletingId = $(this).data('id')
       e.preventDefault()
       return
     $('table').on 'click', '.reset-password', (e) ->
+      $('#reset-password-modal').modal('show')
       $('input[name="id"]').val customer.id
-      r = confirm("Are you sure to reset password this customer?");
-      if r == true
-        $.ajax
-          type: 'POST'
-          url: customerURL + $(this).data('id') + '/update_password'
-          dataType: 'json'
-          data: '_method': 'put'
-          complete: ->
-            return
-
+      window.resetPasswordId = $(this).data('id')
       e.preventDefault()
       return
 
     fetchTable 1
+    $('.add-customer').click (e) ->
+      $(this).hide()
+      $('#customer').show()
+      $('.table').hide()
+      e.preventDefault()
+      return
     $('#cancel').click (e) ->
+      $('.add-customer').show()
+      $('#customer').hide()
+      $('.table').show()
       $('.contact').show()
       $('.address').show()
       $('.applications').show()

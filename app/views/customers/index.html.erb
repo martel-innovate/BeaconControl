@@ -12,6 +12,11 @@
 
 <div class="beacons-table linked-rows">
   <div class="table-header">
+    <div class="row">
+      <div class="col-md-2 col-sm-4 col-xs-12">
+        <button class="add-customer btn btn-success">ADD CUSTOMER</button>
+      </div>
+    </div>
     <%= render "customers/form" %>
   </div>
   <div class="table-header">
@@ -22,9 +27,9 @@
           <th>Telefon</th>
           <th>E-Mail</th>
           <th>Benutzername</th>
-          <th>Detail</th>
-          <th>Passwort zurücksetzen</th>
-          <th>Löchen</th>
+          <th class="text-center">Edit</th>
+          <th class="text-center">Passwort zurücksetzen</th>
+          <th class="text-center">Löchen</th>
         </tr>
       </thead>
       <tbody>
@@ -33,4 +38,5 @@
   </div>
 </div>
 
-<%= prompt_modal(t('beacons.modal.title'), t('beacons.modal.body')) %>
+<%= prompt_modal(t('customers.modal.title'), t('customers.modal.body')) %>
+<%= prompt_modal(t('customers.modal.title'), t('customers.reset_password.body'), 'shared/reset_password_modal') %>
