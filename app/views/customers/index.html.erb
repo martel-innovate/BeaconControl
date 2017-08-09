@@ -16,6 +16,17 @@
       <div class="col-md-2 col-sm-4 col-xs-12">
         <button class="add-customer btn btn-success">ADD CUSTOMER</button>
       </div>
+      <div class="col-md-2 col-sm-4 col-xs-12 hidden batch-delete">
+        <%= button_link :batch_delete, batch_delete_customers_path, class: %w[btn-danger], dynamic_width: true, with_modal: true %>
+      </div>
+      <div class="col-md-3 col-sm-8 col-xs-12 pull-right">
+        <div class="has-feedback">
+          <div class="form-group string optional search_table_customer_email pull-right">
+            <input name="customer_email" value="" class="string optional form-control sortable_table_search_field" placeholder="Search..." type="text" id="search_table_geofence_name">
+          </div>
+          <i class="glyphicon glyphicon-search form-control-feedback"></i>
+        </div>
+      </div>
     </div>
     <%= render "customers/form" %>
   </div>
@@ -23,6 +34,14 @@
     <table class="table table-list table-striped live-search-table" data-search-input="#search_table_beacon_name">
       <thead>
         <tr>
+          <th colspan="2" class="select-all-checkbox">
+            <% if @customers.present? %>
+              <div class="custom-checkbox">
+                <input type="checkbox" id="select_all" class="checkbox" value="select_all" />
+                <label for="select_all"></label>
+              </div>
+            <% end %>
+          </th>
           <th>Kundenname</th>
           <th>Telefon</th>
           <th>E-Mail</th>

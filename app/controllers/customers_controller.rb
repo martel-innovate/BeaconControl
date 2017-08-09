@@ -1,5 +1,6 @@
 class CustomersController < AdminController
   inherit_resources
+  has_scope :with_email, as: :customer_email
 
   def create
     build_customer
@@ -16,7 +17,7 @@ class CustomersController < AdminController
       format.html
       format.json do
         render json: {
-          customers: collection.map {|c| c.to_customer_json }
+          customers: CustomerDecorator.decorate_collection(apply_scopes(collection).all).map {|c| c.to_customer_json }
         }
       end
     end
@@ -31,6 +32,11 @@ class CustomersController < AdminController
     else
       render json: { errors: @customer.errors }, status: 422
     end
+  end
+
+  def batch_delete
+    collection.destroy_all(id: params[:customer_ids])
+    redirect_to customers_path
   end
 
   private

@@ -31,19 +31,35 @@ $ ->
     deleteBtn.after(deleteBtn.clone().removeClass('delete-action').addClass('dup-delete-action').removeAttr('data-method'))
     deleteBtn.hide()
     $('#destroy-modal .dup-delete-action').click (e) ->
-      $.ajax
-        type: 'POST'
-        url: customerURL + window.deletingId
-        dataType: 'json'
-        data: '_method': 'delete'
-        complete: ->
-          $('#destroy-modal').modal('hide')
-          fetchTable 1
-          $('#cancel').click()
-          return
+      if $(this).attr('href').indexOf('batch') >= 0
+        $.ajax
+          type: 'POST'
+          url: $(this).attr('href')
+          dataType: 'json'
+          data: '_method': 'delete'
+          complete: ->
+            $('#destroy-modal').modal('hide')
+            fetchTable()
+            $('#cancel').click()
+            return
+      else
+        $.ajax
+          type: 'POST'
+          url: customerURL + window.deletingId
+          dataType: 'json'
+          data: '_method': 'delete'
+          complete: ->
+            $('#destroy-modal').modal('hide')
+            fetchTable()
+            $('#cancel').click()
+            return
       e.preventDefault()
+      $(this).attr('href', customerURL)
+      $('.batch-delete').addClass('hidden')
       return
-
+    $('input[name="customer_email"]').change (e) ->
+      params = '?customer_email=' + $(this).val()
+      fetchTable(params)
     $('#reset-password-modal .reset-action').click (e) ->
       $.ajax
         type: 'POST'
@@ -87,15 +103,20 @@ $ ->
     validatePrecense = undefined
 
     createRow = (customer) ->
-      '<tr>' + '<td>' + customer.contact.name + '</td>' + '<td>' + customer.contact.phone_number + '</td>' +
+      '<tr>' + '<td class="zone-mark disable-select" style="background: transparent"></td>' +
+      '<td class="with-checkbox"><div class="custom-checkbox">' +
+      '<input type="checkbox" id="customer_'+ customer.id + '" value="' + customer.id + '" name="customer_ids[]" class="checkbox value-checkbox">' +
+      '<label for="customer_'+ customer.id + '"></label></div></td>' +
+      '<td>' + customer.contact.name + '</td>' + '<td>' + customer.contact.phone_number + '</td>' +
       '<td>' + customer.email + '</td>' + '<td>' + customer.username + '</td>' +
       '<td class="text-center"><a class="edit btn btn-default" href="#" data-id="' + customer.id +
       '"><i class="fa fa-edit"></i></a></td>' + '<td class="text-center"><a class="reset-password btn btn-warning" href="#" data-id="' +
       customer.id + '"><i class="fa fa-rotate-left"></i></a></td>' + '<td class="text-center"><a class="delete btn btn-danger" href="#" data-id="' +
       customer.id + '"><i class="fa fa-remove"></i></a></td>' + '</tr>'
 
-    fetchTable = () ->
-      $.get fetchURL, (data) ->
+    fetchTable = (params) ->
+      params ||= ''
+      $.get fetchURL + params, (data) ->
         window.customers = data.customers
         window.customers[0][1] = data.customers[0][1].map((e) ->
           JSON.parse e
@@ -192,7 +213,7 @@ $ ->
           async: false
           success: (data) ->
             $('#cancel').click()
-            fetchTable 1
+            fetchTable()
             return
           error: (errors) ->
             errors.responseJSON.customers[0][1].forEach (e) ->
@@ -228,7 +249,7 @@ $ ->
       e.preventDefault()
       return
 
-    fetchTable 1
+    fetchTable()
     $('.add-customer').click (e) ->
       $(this).hide()
       $('#customer').show()
