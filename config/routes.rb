@@ -61,6 +61,9 @@ BeaconControl::Application.routes.draw do
 
   resources :customers, except: [:new, :edit] do
     put 'update_password' => 'customers#update_password'
+    collection do
+      delete :batch_delete
+    end
   end
 
   resources :notifications, only: [:new, :index, :create]

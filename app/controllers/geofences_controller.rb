@@ -1,6 +1,5 @@
 class GeofencesController < AdminController
   inherit_resources
-  custom_actions collection: :batch_update
   load_and_authorize_resource
 
   has_scope :with_geofence_name, as: :geofence_name
