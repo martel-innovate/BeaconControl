@@ -2,46 +2,83 @@
   <span><%= t('.title') %></span>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Name</th>
-      <th>Address</th>
-      <th>Zip code</th>
-      <th>City</th>
-      <th>Opening hours</th>
-      <th>Has opening hours</th>
-      <th>Entrance</th>
-      <th>Website</th>
-      <th>Phone</th>
-      <th>Email</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="beacons-table linked-rows">
 
-  <tbody>
-    <% @places.each do |place| %>
-      <tr>
-        <td><%= place.type %></td>
-        <td><%= place.name %></td>
-        <td><%= place.address %></td>
-        <td><%= place.zip_code %></td>
-        <td><%= place.city %></td>
-        <td><%= place.opening_hours %></td>
-        <td><%= place.has_opening_hours %></td>
-        <td><%= place.entrance %></td>
-        <td><%= place.website %></td>
-        <td><%= place.phone %></td>
-        <td><%= place.email %></td>
-        <td><%= link_to 'Show', place %></td>
-        <td><%= link_to 'Edit', edit_place_path(place) %></td>
-        <td><%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+  <div class="table-header">
+    <%= simple_form_for :search_table, method: :get, html: { class: %W[form-inline] } do |f| %>
+      <%= hidden_field_tag :direction, params[:direction] %>
+      <%= hidden_field_tag :sort, params[:sort] %>
+
+      <div class="row">
+        <div class="col-md-2 col-sm-4 col-xs-12">
+          <%= button_link :new, new_place_path, class: %w[btn-success], i18n: 'places.index' %>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-12 hidden batch-delete">
+          <%= button_link :batch_delete, batch_delete_places_path, class: %w[btn-danger], dynamic_width: true, with_modal: true %>
+        </div>
+
+        <div class="col-md-3 col-sm-8 col-xs-12 pull-right">
+          <div class="has-feedback">
+            <%= f.input :place_name,
+                        label: false,
+                        placeholder: t(".search"),
+                        required: false,
+                        input_html: {
+                            name: "place_name",
+                            value: params[:place_name],
+                            class: %W[ sortable_table_search_field ]
+                        }
+            %>
+            <i class="glyphicon glyphicon-search form-control-feedback"></i>
+          </div>
+        </div>
+
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
+  <table class="table table-list table-striped">
+    <thead>
+      <tr>
+        <th colspan="2" class="select-all-checkbox">
+          <% if @places.present? %>
+            <div class="custom-checkbox">
+              <input type="checkbox" id="select_all" class="checkbox" value="select_all" />
+              <label for="select_all"></label>
+            </div>
+          <% end %>
+        </th>
+        <th class="sortable"><%= sortable "places.name", Place.human_attribute_name(:name) %></th>
+        <th class="sortable"><%= sortable "places.address", Place.human_attribute_name(:address) %></th>
+        <th class="sortable"><%= sortable "places.phone", Place.human_attribute_name(:phone) %></th>
+        <th><%= t('.details') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @places.each do |place| %>
+        <tr>
+          <td class="zone-mark disable-select" style="background: transparent"></td>
+          <td class="with-checkbox">
+            <div class="custom-checkbox">
+              <input type="checkbox" id='<%="place_#{place.id}"%>' value=<%= place.id %> name="place_ids[]" class="checkbox value-checkbox" />
+              <label for="<%="place_#{place.id}"%>"></label>
+            </div>
+          </td>
+          <td><%= truncate(place.name, length: 30) %></td>
+          <td class="place_address">
+            <%= place.full_address %>
+          </td>
+          <td class="place_city">
+            <%= place.phone %>
+          </td>
+          <td class="disable-select">
+            <%= button_link :edit, edit_place_path(place), dynamic_width: true %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @places %>
+</div>
 
-<%= link_to 'New Place', new_place_path %>
+<%= prompt_modal(t('places.modal.title'), t('places.modal.body')) %>

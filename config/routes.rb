@@ -9,7 +9,12 @@
 require_relative '../lib/app_status'
 
 BeaconControl::Application.routes.draw do
-  resources :places
+  resources :places, except: [:show] do
+    collection do
+      delete :batch_delete
+      get :search
+    end
+  end
 
   mount(
     AppStatus::Rack.new do |config|

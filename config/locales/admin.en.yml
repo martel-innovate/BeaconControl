@@ -202,15 +202,21 @@ en:
 
   places:
     form:
-      save: 'Save'
-      cancel: 'Cancel'
+      save: Save
+      cancel: Cancel
     index:
-      title:    'Places'
-      add_new:  'Add New Place'
+      title: Places
+      new: Add Place
+      batch_delete: Delete Places
+      search: Search
+      details: Details
     new:
-      title: 'New Place'
+      title: New Place
     edit:
-      title: 'Edit Place'
+      title: Edit Place
+    modal:
+      title: Warning!
+      body: Are you sure you want to delete these places?
 
   schedules:
     template: 'Template'
