@@ -18,7 +18,8 @@ class PlacesController < AdminController
 
   def index
     params[:page] ||= 1
-    @places = PlaceDecorator.decorate_collection apply_scopes(collection).page(params[:page]).per(PER_PAGE)
+    params[:per_page] ||= PER_PAGE
+    @places = PlaceDecorator.decorate_collection apply_scopes(collection).page(params[:page]).per(params[:per_page])
     index!
   end
 
@@ -42,8 +43,8 @@ class PlacesController < AdminController
 
   private
 
-    def place_params
-      params.require(:place).permit(:type, :name, :address, :zip_code, :city, :opening_hours, :has_opening_hours, :entrance, :website, :phone, :email)
-    end
+  def place_params
+    params.require(:place).permit(:type, :name, :address, :zip_code, :city, :opening_hours, :has_opening_hours, :entrance, :website, :phone, :email)
+  end
 end
 
