@@ -200,6 +200,18 @@ en:
     new:
       title: 'New push notification'
 
+  places:
+    form:
+      save: 'Save'
+      cancel: 'Cancel'
+    index:
+      title:    'Places'
+      add_new:  'Add New Place'
+    new:
+      title: 'New Place'
+    edit:
+      title: 'Edit Place'
+
   schedules:
     template: 'Template'
     edit:
@@ -387,6 +399,7 @@ en:
         schedules: 'Schedules'
         customers: "Customers"
         notifications: Notifications
+        places: Places
         map: 'Map'
         extensions_marketplace: 'Add-ons'
         users: 'Users'

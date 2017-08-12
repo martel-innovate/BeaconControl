@@ -9,6 +9,8 @@
 require_relative '../lib/app_status'
 
 BeaconControl::Application.routes.draw do
+  resources :places
+
   mount(
     AppStatus::Rack.new do |config|
       config.add_class AppStatus::DatabaseCheckRequest, name: :database_ok?

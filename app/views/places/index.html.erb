@@ -1,0 +1,47 @@
+<% content_for :header_breadcrumbs do %>
+  <span><%= t('.title') %></span>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Zip code</th>
+      <th>City</th>
+      <th>Opening hours</th>
+      <th>Has opening hours</th>
+      <th>Entrance</th>
+      <th>Website</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @places.each do |place| %>
+      <tr>
+        <td><%= place.type %></td>
+        <td><%= place.name %></td>
+        <td><%= place.address %></td>
+        <td><%= place.zip_code %></td>
+        <td><%= place.city %></td>
+        <td><%= place.opening_hours %></td>
+        <td><%= place.has_opening_hours %></td>
+        <td><%= place.entrance %></td>
+        <td><%= place.website %></td>
+        <td><%= place.phone %></td>
+        <td><%= place.email %></td>
+        <td><%= link_to 'Show', place %></td>
+        <td><%= link_to 'Edit', edit_place_path(place) %></td>
+        <td><%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Place', new_place_path %>
