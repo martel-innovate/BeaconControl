@@ -103,6 +103,12 @@ BeaconControl::Application.routes.draw do
     end
   end
   resources :schedules
+  resources :bus_stops, except: [:show] do
+    collection do
+      delete :batch_delete
+      get :search
+    end
+  end
 
   resource :map
 

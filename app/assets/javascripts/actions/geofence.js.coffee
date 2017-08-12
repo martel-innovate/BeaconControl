@@ -17,11 +17,11 @@ $ ->
     latInput.val pos.lat
     lngInput.val pos.lng
     if radiusInput.val() == ''
-      radiusInput.val 100
+      radiusInput.val(radiusInput.data('default-value'))
     return
 
   createMap = (pos) ->
-    map = new Map(document.getElementById('geofence-map'), {
+    map = new Map(document.getElementById('map'), {
       lat: pos.lat
       lng: pos.lng
       zoom: 15
@@ -62,34 +62,36 @@ $ ->
   map = undefined
   marker = undefined
   slider = $('#slider')
-  radiusInput = $('#geofence_radius')
-  latInput = $('#geofence_latitude')
-  lngInput = $('#geofence_longtitude')
-  geofenceMap = $('#geofence-map')
+  radiusInput = $('.radius')
+  latInput = $('.latitude')
+  lngInput = $('.longtitude')
+  geofenceMap = $('#map')
   pos = undefined
   if geofenceMap.length > 0
     radiusInput.change (e) ->
       val = undefined
       val = radiusInput.val()
-      if val > 50000
-        radiusInput.val 50000
-        val = 50000
-      if val < 10
-        radiusInput.val 10
-        val = 10
-      geofence.setRadius radiusInput.val()
+      max = parseInt(radiusInput.attr('max'))
+      min = parseInt(radiusInput.attr('min'))
+      if val > max
+        radiusInput.val max
+        val = max
+      if val < min
+        radiusInput.val min
+        val = min
+      geofence.setRadius parseInt(radiusInput.val())
       slider.slider 'value', radiusInput.val()
       return
     slider.slider
       orientation: 'horizontal'
-      min: 10
-      max: 50000
-      value: 100
-      step: 10
+      min: parseInt(radiusInput.attr('min'))
+      max: parseInt(radiusInput.attr('max'))
+      value: parseInt(radiusInput.data('default-value'))
+      step: parseInt(radiusInput.attr('min'))
       animate: false
       stop: (event, ui) ->
         radiusInput.val ui.value
-        geofence.setRadius ui.value
+        geofence.setRadius parseInt(ui.value)
         return
     navigator.geolocation.getCurrentPosition ((position) ->
       if latInput.val() == '' and lngInput.val() == ''

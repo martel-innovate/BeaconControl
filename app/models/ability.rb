@@ -22,6 +22,7 @@ class Ability
       can :manage, Beacon, account_id: user.account_id
       can :manage, Geofence, account_id: user.account_id
       can :manage, Schedule, account_id: user.account_id
+      can :manage, BusStop, account_id: user.account_id
       can :manage, Extension
       can :create, Activity
       can :create, Action

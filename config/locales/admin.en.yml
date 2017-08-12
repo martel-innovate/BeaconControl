@@ -243,6 +243,48 @@ en:
       title: 'Schedules'
       action: 'Add Schedule'
 
+  bus_stops:
+    edit:
+      title:  'Bus Stops'
+      action: 'Edit Bus Stop'
+
+    form:
+      unassigned: 'Unassigned'
+      save: 'Save Bus Stop'
+      cancel: 'Cancel'
+      test_notification: '(will be displayed for the ContextOS App users)'
+      uuid: 'UUID'
+      proximity: 'UUID'
+      major: Major
+      minor: Minor
+      namespace: Namespace
+      instance: Instance ID
+      url: URL
+      proximity_tooltip: UUID
+
+    index:
+      title:   'Bus Stops'
+      add_new: 'Add Bus Stop'
+      options: 'Options'
+      details: 'Details'
+      batch_delete: 'Delete Bus Stops'
+      lng: 'Longtitude'
+      lat: 'Latitude'
+
+      unassigned_zone: 'Unassigned'
+      unassigned_floor: 'N/A'
+      select_zone_prompt: 'Set zone'
+      select_floor_prompt: 'Set floor'
+      search: 'Search...'
+
+    modal:
+      title: 'Warning!'
+      body: 'Are you sure you want to delete bus stop?'
+
+    new:
+      title: 'Bus Stops'
+      action: 'Add Bus Stop'
+
   geofences:
     edit:
       title:  'Geofences'
@@ -385,6 +427,7 @@ en:
         zones: 'Zones'
         geofences: 'Geofences'
         schedules: 'Schedules'
+        bus_stops: 'Bus Stops'
         customers: "Customers"
         notifications: Notifications
         map: 'Map'
