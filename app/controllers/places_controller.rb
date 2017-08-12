@@ -2,7 +2,7 @@ class PlacesController < AdminController
   inherit_resources
   load_and_authorize_resource
 
-  PER_PAGE = 1
+  PER_PAGE = 10
 
   has_scope :sorted, using: [:column, :direction], type: :hash, default: {
                      column: 'places.name',

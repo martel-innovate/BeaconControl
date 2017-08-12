@@ -78,7 +78,9 @@
       <% end %>
     </tbody>
   </table>
-  <%= paginate @places %>
+  <div style="padding-left: 15px;">
+    <%= paginate @places %>
+  </div>
 </div>
 
 <%= prompt_modal(t('places.modal.title'), t('places.modal.body')) %>
