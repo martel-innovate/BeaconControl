@@ -173,6 +173,7 @@ BeaconControl::Application.routes.draw do
 
       resources :geofences, only: [:index]
       resources :schedules, only: [:index]
+      resources :bus_stops, only: [:index]
 
       resources :beacons, only: [:index, :create, :update, :destroy] do
         collection do
