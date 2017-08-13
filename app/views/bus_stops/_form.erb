@@ -1,5 +1,5 @@
 <div class="tab-space tab-manager event-publisher" data-init="true">
-    <%= simple_form_for @geofence,
+    <%= simple_form_for @bus_stop,
                              html: {
                                  class: %W[
                                   validation-extension
@@ -13,34 +13,12 @@
     <div class="row form-container">
       <div class="col-md-6">
         <%= f.input :name, input_html: { data: { required: true } }%>
-        <div class="form-group">
-          <%= f.simple_fields_for :enter_action do |a| %>
-            <label class="control-label">Enter Action</label>
-            <%= a.check_box :active, class: "geofence" %>
-
-						<div class="action-details disabled">
-              <%= a.hidden_field :geofence_id %>
-              <%= a.select :name, [['Pushbenachrichtigung', 'Pushbenachrichtigung']], {}, { class: 'form-control', disabled: @geofence.enter_action.active ? 'disabled' : '' } %>
-              <%= a.text_area :message, placeholder: 'Push message', class: 'form-control', required: true, disabled: @geofence.enter_action.active ? 'disabled' : '', rows: 12 %>
-						</div>
-          <% end %>
-        </div>
-        <div class="form-group">
-          <%= f.simple_fields_for :exit_action do |a| %>
-            <label class="control-label">Exit Action</label>
-            <%= a.check_box :active, class: "geofence" %>
-						<div class="action-details">
-              <%= a.select :name, [['Pushbenachrichtigung', 'Pushbenachrichtigung']], {}, { class: 'form-control', disabled: @geofence.exit_action.active ? 'disabled' : '' } %>
-              <%= a.text_area :message, placeholder: 'Push message', class: 'form-control', required: true, disabled: @geofence.exit_action.active ? 'disabled' : '', rows: 12 %>
-						</div>
-          <% end %>
-        </div>
       </div>
       <div class="col-md-6">
         <div id="map"></div>
         <div id="slider"></div>
 
-        <%= f.input :radius, input_html: { data: { required: true, default_value: 100 }, min: 10, max: 50000, class: 'radius' }%>
+        <%= f.input :radius, input_html: { data: { required: true, default_value: 20 }, min: 1, max: 1000, class: 'radius' }%>
         <div class="row">
           <div class="col-md-6">
             <%= f.input :longtitude, input_html: { data: { required: true }, class: 'longtitude' }%>
@@ -54,11 +32,11 @@
 
     <%# Footer %>
     <div id="beacon-action-footer" class="row actions-row sticky-footer">
-      <% if @geofence.persisted? %>
+      <% if @bus_stop.persisted? %>
         <div class="col-xs-6">
           <div class="pull-left">
             <%= button_link :delete_nice,
-                            geofence_path(@geofence),
+                            bus_stop_path(@bus_stop),
                             class: %w[btn btn-danger],
                             with_modal: true,
                             dynamic_width: true
@@ -67,10 +45,10 @@
         </div>
       <% end %>
 
-      <% if @geofence.persisted? %>
+      <% if @bus_stop.persisted? %>
         <div class="col-xs-6 modify-beacon-actions">
           <div class="pull-right">
-            <%= button_link :cancel, geofences_path %>
+            <%= button_link :cancel, bus_stops_path %>
             <%= f.button :submit, t('.save'),
                          class: %w[btn-success btn btn-static-width-medium btn-action-save]
             %>
@@ -80,7 +58,7 @@
         <div class="col-xs-12 " id="footer-right" >
           <div class="pull-right">
             <%= button_link :cancel,
-                            geofences_path,
+                            bus_stops_path,
                             class: 'modify-beacon-actions'
             %>
             <%= f.button :submit,
@@ -99,4 +77,4 @@
   <% end %>
 </div>
 
-<%= prompt_modal(t('geofences.modal.title'), t('geofences.modal.body')) %>
+<%= prompt_modal(t('bus_stops.modal.title'), t('bus_stops.modal.body')) %>

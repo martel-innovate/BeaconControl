@@ -133,6 +133,13 @@ en:
       delete_nice: 'Delete Geofence'
       next: "Next"
 
+  bus_stops:
+    form:
+      action: "Action"
+      delete_nice: 'Delete Bus Stops'
+      next: "Next"
+
+
   schedules:
     form:
       action: "Action"
