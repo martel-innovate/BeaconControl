@@ -13,6 +13,8 @@ class Account < ActiveRecord::Base
 
   has_many :zones
   has_many :beacons
+  has_many :geofences
+  has_many :bus_stops
 
   has_many :applications
   has_many :application_extensions, through: :applications

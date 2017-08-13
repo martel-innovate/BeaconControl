@@ -83,6 +83,7 @@
             <li><%= active_link_to t('.menu.dashboard'), main_app.root_path, active: [['dashboard'], []] %></li>
             <li><%= active_link_to t('.menu.beacons'), main_app.beacons_path %></li>
             <li><%= active_link_to t('.menu.geofences'), main_app.geofences_path %></li>
+            <li><%= active_link_to t('.menu.bus_stops'), main_app.bus_stops_path %></li>
             <li><%= active_link_to t('.menu.schedules'), main_app.schedules_path %></li>
             <li><%= active_link_to t('.menu.zones'), main_app.zones_path %></li>
             <li><%= active_link_to t('.menu.extensions_marketplace'), main_app.extensions_marketplace_index_path %></li>
@@ -123,6 +124,7 @@
             <li><%= active_link_to bos_icon(:zone, t('.menu.zones')), main_app.zones_path, data: walkthrough_data(2, :zones) %></li>
             <li><%= active_link_to awesome_icon('map-marker', t('.menu.geofences')), main_app.geofences_path, data: walkthrough_data(3, :geofences) %></li>
             <li><%= active_link_to awesome_icon('calendar', t('.menu.schedules')), main_app.schedules_path, data: walkthrough_data(3, :schedules) %></li>
+            <li><%= active_link_to awesome_icon('bus', t('.menu.bus_stops')), main_app.bus_stops_path, data: walkthrough_data(3, :schedules) %></li>
             <li><%= active_link_to bos_icon(:earth, t('.menu.map')), main_app.map_path, active: [['maps'], []], data: walkthrough_data(3, :map) %></li>
             <li><%= active_link_to bos_icon(:extension, t('.menu.extensions_marketplace')), main_app.extensions_marketplace_index_path,
                     active: /^\/add_ons/, data: walkthrough_data(5, :addons) %></li>
