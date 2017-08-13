@@ -121,6 +121,13 @@ BeaconControl::Application.routes.draw do
     end
   end
 
+  resources :places, except: [:show] do
+    collection do
+      delete :batch_delete
+      get :search
+    end
+  end
+
   scope 'api/v1', scope: 'api' do
     use_doorkeeper do
       skip_controllers :applications, :authorized_applications
@@ -174,6 +181,7 @@ BeaconControl::Application.routes.draw do
       resources :geofences, only: [:index]
       resources :schedules, only: [:index]
       resources :bus_stops, only: [:index]
+      resources :places, only: [:index, :show]
 
       resources :beacons, only: [:index, :create, :update, :destroy] do
         collection do

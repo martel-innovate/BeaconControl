@@ -29,6 +29,7 @@ class Ability
       can :manage, Activity, trigger: { application: { account_id: user.account_id } }
       can :manage, BeaconConfig
       can :manage, Notification
+      can :manage, Place
     when 'beacon_manager'
       can [:read, :update], Admin, id: user.id
       can :manage, Zone, manager_id: user.id

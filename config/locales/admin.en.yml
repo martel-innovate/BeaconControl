@@ -200,6 +200,24 @@ en:
     new:
       title: 'New push notification'
 
+  places:
+    form:
+      save: Save
+      cancel: Cancel
+    index:
+      title: Places
+      new: Add Place
+      batch_delete: Delete Places
+      search: Search
+      details: Details
+    new:
+      title: New Place
+    edit:
+      title: Edit Place
+    modal:
+      title: Warning!
+      body: Are you sure you want to delete these places?
+
   schedules:
     template: 'Template'
     edit:
@@ -430,6 +448,7 @@ en:
         bus_stops: 'Bus Stops'
         customers: "Customers"
         notifications: Notifications
+        places: Places
         map: 'Map'
         extensions_marketplace: 'Add-ons'
         users: 'Users'

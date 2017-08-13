@@ -482,6 +482,22 @@ ActiveRecord::Schema.define(version: 20170812141932) do
 
   add_index "old_passwords", ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable", using: :btree
 
+  create_table "places", force: :cascade do |t|
+    t.string   "type"
+    t.string   "name"
+    t.string   "address"
+    t.string   "zip_code"
+    t.string   "city"
+    t.text     "opening_hours"
+    t.boolean  "has_opening_hours", default: true
+    t.text     "entrance"
+    t.string   "website"
+    t.string   "phone"
+    t.string   "email"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
   create_table "rpush_apps", force: :cascade do |t|
     t.string   "name",                                null: false
     t.string   "environment"

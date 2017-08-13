@@ -1,0 +1,2 @@
+class Museum < Place
+end
