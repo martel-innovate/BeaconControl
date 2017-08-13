@@ -16,10 +16,14 @@ module S2sApi
 
       actions :index
       def index
-        render json: to_custom_json(@bus_stops.where('updated_at > ?', search_params[:timestamp]))
+        render json: to_custom_json(search_by_timestamp)
       end
 
       private
+
+      def search_by_timestamp
+        search_params[:timestamp] ? @bus_stops.where('updated_at > ?', search_params[:timestamp]) : @bus_stops
+      end
 
       def to_custom_json(collection)
         collection.map { |c|
