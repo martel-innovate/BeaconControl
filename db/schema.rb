@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170812141932) do
+ActiveRecord::Schema.define(version: 20170814135640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,12 +54,15 @@ ActiveRecord::Schema.define(version: 20170812141932) do
     t.string   "street"
     t.string   "zip"
     t.string   "city"
-    t.integer  "admin_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "addressable_id"
+    t.string   "addressable_type"
+    t.decimal  "longtitude",       precision: 15, scale: 11
+    t.decimal  "latitude",         precision: 15, scale: 11
   end
 
-  add_index "addresses", ["admin_id"], name: "index_addresses_on_admin_id", using: :btree
+  add_index "addresses", ["addressable_id", "addressable_type"], name: "index_addresses_on_addressable_id_and_addressable_type", using: :btree
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -576,6 +579,18 @@ ActiveRecord::Schema.define(version: 20170812141932) do
 
   add_index "schedules", ["account_id"], name: "index_schedules_on_account_id", using: :btree
   add_index "schedules", ["beacon_id"], name: "index_schedules_on_beacon_id", using: :btree
+
+  create_table "toilets", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "accessible"
+    t.integer  "kind"
+    t.text     "description"
+    t.integer  "account_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "toilets", ["account_id"], name: "index_toilets_on_account_id", using: :btree
 
   create_table "triggers", force: :cascade do |t|
     t.datetime "created_at",                       null: false

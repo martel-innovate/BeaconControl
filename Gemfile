@@ -24,7 +24,7 @@ gem 'less'
 gem 'less-rails'
 gem 'less-rails-bootstrap'
 gem 'therubyracer'
-gem 'font-awesome-rails'
+gem 'font-awesome-rails', '>= 4.7.0.2'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 # See https://github.com/sstephenson/execjs#readme for more supported runtime

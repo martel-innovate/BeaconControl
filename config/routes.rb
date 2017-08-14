@@ -109,6 +109,12 @@ BeaconControl::Application.routes.draw do
       get :search
     end
   end
+  resources :toilets, except: [:show] do
+    collection do
+      delete :batch_delete
+      get :search
+    end
+  end
 
   resource :map
 

@@ -39,7 +39,7 @@ class Admin < ActiveRecord::Base
   has_many :zones,   foreign_key: :manager_id, dependent: :nullify
   has_many :beacons, foreign_key: :manager_id, dependent: :nullify
   has_one :contact, dependent: :destroy
-  has_one :address, dependent: :destroy
+  has_one :address, as: :addressable, dependent: :destroy
 
   has_many :access_tokens, -> { where(scopes: 'admin') },
     class_name:  'Doorkeeper::AccessToken',
