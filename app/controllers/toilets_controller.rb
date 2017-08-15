@@ -23,11 +23,6 @@ class ToiletsController < AdminController
     update! { toilets_path }
   end
 
-  def edit
-    @toilet.add_actions
-    edit!
-  end
-
   def batch_delete
     collection.destroy_all(id: params[:toilet_ids])
     redirect_to toilets_path

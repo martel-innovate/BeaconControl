@@ -146,6 +146,13 @@ en:
       delete_nice: 'Delete Schedule'
       next: "Next"
 
+  toilets:
+    form:
+      action: "Action"
+      delete_nice: 'Delete Schedule'
+      next: "Next"
+
+
   beacons:
     zero: "no beacons"
     one: "%{count} beacon"

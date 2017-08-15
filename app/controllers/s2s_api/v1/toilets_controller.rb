@@ -16,13 +16,14 @@ module S2sApi
 
       actions :index
       def index
+        binding.pry
         render json: to_custom_json(search_by_timestamp)
       end
 
       private
 
       def search_by_timestamp
-        search_params[:timestamp] ? @bus_stops.where('updated_at > ?', search_params[:timestamp]) : @bus_stops
+        search_params[:timestamp] ? @toilets.where('updated_at > ?', search_params[:timestamp]) : @toilets
       end
 
       def to_custom_json(collection)
@@ -30,8 +31,8 @@ module S2sApi
           {
             id: c.id,
             name: c.name,
-            type: c.kind,
-            accessible: c.accessible,
+            type: Toilet::KINDS[c.kind],
+            accessible: Toilet::ACCESSIBLES[c.accessible],
             description: c.description,
             address: {
               street: c.address.street,
