@@ -16,7 +16,6 @@ module S2sApi
 
       actions :index
       def index
-        binding.pry
         render json: to_custom_json(search_by_timestamp)
       end
 
