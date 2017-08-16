@@ -30,6 +30,7 @@ class Ability
       can :manage, BeaconConfig
       can :manage, Notification
       can :manage, Place
+      can :manage, Advertisment
     when 'beacon_manager'
       can [:read, :update], Admin, id: user.id
       can :manage, Zone, manager_id: user.id

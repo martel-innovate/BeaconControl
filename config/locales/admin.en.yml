@@ -218,6 +218,24 @@ en:
       title: Warning!
       body: Are you sure you want to delete these places?
 
+  advertisments:
+    form:
+      save: Save
+      cancel: Cancel
+    index:
+      title: Advertisments
+      new: Add
+      batch_delete: Delete Advertisments
+      search: Search
+      details: Details
+    new:
+      title: New Advertisment
+    edit:
+      title: Edit Advertisment
+    modal:
+      title: Warning!
+      body: Are you sure you want to delete these advertisments?
+
   schedules:
     template: 'Template'
     edit:

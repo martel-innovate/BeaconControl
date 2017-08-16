@@ -128,6 +128,13 @@ BeaconControl::Application.routes.draw do
     end
   end
 
+  resources :advertisments, except: [:show] do
+    collection do
+      delete :batch_delete
+      get :search
+    end
+  end
+
   scope 'api/v1', scope: 'api' do
     use_doorkeeper do
       skip_controllers :applications, :authorized_applications

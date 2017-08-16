@@ -1,0 +1,44 @@
+<%= simple_form_for(@advertisment, html: { class: %W[place-form with-sticky-footer validation-extension] }) do |f| %>
+  <div class="row form-container">
+    <div class="col-md-6 first-column">
+      <div class="control-group">
+        <div class="controls">
+          <%= f.input :name, input_html: { data: { required: true } } %>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <%= f.input :start_date, as: :string, class: "datepicker form-control" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <%= f.input :end_date, as: :string, class: "datepicker form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 second-column">
+    </div>
+  </div>
+
+  <div class="row actions-row sticky-footer">
+    <div class="col-xs-12">
+      <div class="pull-right">
+        <%= button_link :cancel, advertisments_path %>
+        <%= f.button :submit, t('.save'), class: %w[btn btn-success btn-static-width btn-action-save] %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#advertisment_start_date').datepicker({
+      dateFormat: "yy-mm-dd"
+    });
+    $('#advertisment_end_date').datepicker({
+      dateFormat: "yy-mm-dd"
+    });
+  });
+</script>
+
