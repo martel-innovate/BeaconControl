@@ -109,6 +109,12 @@ BeaconControl::Application.routes.draw do
       get :search
     end
   end
+  resources :toilets, except: [:show] do
+    collection do
+      delete :batch_delete
+      get :search
+    end
+  end
 
   resource :map
 
@@ -182,6 +188,7 @@ BeaconControl::Application.routes.draw do
       resources :schedules, only: [:index]
       resources :bus_stops, only: [:index]
       resources :places, only: [:index, :show]
+      resources :toilets, only: [:index]
 
       resources :beacons, only: [:index, :create, :update, :destroy] do
         collection do

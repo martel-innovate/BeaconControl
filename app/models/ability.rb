@@ -23,6 +23,7 @@ class Ability
       can :manage, Geofence, account_id: user.account_id
       can :manage, Schedule, account_id: user.account_id
       can :manage, BusStop, account_id: user.account_id
+      can :manage, Toilet, account_id: user.account_id
       can :manage, Extension
       can :create, Activity
       can :create, Action

@@ -261,6 +261,48 @@ en:
       title: 'Schedules'
       action: 'Add Schedule'
 
+  toilets:
+    edit:
+      title:  'Toilet'
+      action: 'Edit Toilet'
+
+    form:
+      unassigned: 'Unassigned'
+      save: 'Save Toilet'
+      cancel: 'Cancel'
+      test_notification: '(will be displayed for the ContextOS App users)'
+      uuid: 'UUID'
+      proximity: 'UUID'
+      major: Major
+      minor: Minor
+      namespace: Namespace
+      instance: Instance ID
+      url: URL
+      proximity_tooltip: UUID
+
+    index:
+      title:   'Toilets'
+      add_new: 'Add Toilet'
+      options: 'Options'
+      details: 'Details'
+      batch_delete: 'Delete Toilet'
+      kind: 'Type'
+      accessible: 'Accessible'
+
+      unassigned_zone: 'Unassigned'
+      unassigned_floor: 'N/A'
+      select_zone_prompt: 'Set zone'
+      select_floor_prompt: 'Set floor'
+      search: 'Search...'
+
+    modal:
+      title: 'Warning!'
+      body: 'Are you sure you want to delete toilet?'
+
+    new:
+      title: 'Toilets'
+      action: 'Add Toilet'
+
   bus_stops:
     edit:
       title:  'Bus Stops'
@@ -285,7 +327,7 @@ en:
       add_new: 'Add Bus Stop'
       options: 'Options'
       details: 'Details'
-      batch_delete: 'Delete Bus Stops'
+      batch_delete: 'Delete Bus Stop'
       lng: 'Longtitude'
       lat: 'Latitude'
 
@@ -446,6 +488,7 @@ en:
         geofences: 'Geofences'
         schedules: 'Schedules'
         bus_stops: 'Bus Stops'
+        toilets: 'Toilets'
         customers: "Customers"
         notifications: Notifications
         places: Places

@@ -1,3 +1,3 @@
 class Address < ActiveRecord::Base
-  belongs_to :admin
+  belongs_to :adressable, polymorphic: true
 end
