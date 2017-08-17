@@ -12,4 +12,12 @@ class Toilet < ActiveRecord::Base
     'Behindertengerecht',
     'Behindertenfreundlich'
   ]
+
+  def kind_text
+    kind.present? ? KINDS[kind] : ''
+  end
+
+  def accessible_text
+    accessible.present? ? ACCESSIBLES[accessible] : ''
+  end
 end

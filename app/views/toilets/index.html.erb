@@ -68,10 +68,10 @@
             </td>
             <td><%= truncate(toilet.name, length: 30) %></td>
             <td class="toilet_longtitude">
-              <%= Toilet::KINDS[toilet.kind] %>
+              <%= toilet.kind_text %>
             </td>
             <td class="toilet_latitude">
-              <%= Toilet::ACCESSIBLES[toilet.accessible] %>
+              <%= toilet.accessible_text %>
             </td>
             <td class="disable-select">
               <%= button_link :edit, edit_toilet_path(toilet), dynamic_width: true %>
