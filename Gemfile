@@ -68,6 +68,7 @@ gem 'barby'
 
 gem 'bootstrap-slider-rails'
 
+gem "mini_magick"
 # File upload and image processing gems
 # https://github.com/jnicklas/carrierwave
 gem 'carrierwave'

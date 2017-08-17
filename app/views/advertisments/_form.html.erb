@@ -16,8 +16,16 @@
           <%= f.input :end_date, as: :string, class: "datepicker form-control" %>
         </div>
       </div>
+      <div class="control-group">
+        <div class="controls">
+          <%= f.input :image %>
+        </div>
+      </div>
     </div>
     <div class="col-md-6 second-column">
+      <div class="image-preview">
+        <%= image_tag @advertisment.image_url, class: 'img-responsive' %>
+      </div>
     </div>
   </div>
 

@@ -5,8 +5,8 @@ class AdvertismentsController < AdminController
   PER_PAGE = 10
 
   has_scope :sorted, using: [:column, :direction], type: :hash, default: {
-                     column: 'advertisments.name',
-                     direction: 'asc'
+                     column: 'advertisments.created_at',
+                     direction: 'desc'
                    }
   has_scope :with_name, as: :advertisment_name
 
@@ -44,7 +44,7 @@ class AdvertismentsController < AdminController
   private
 
     def advertisment_params
-      params.require(:advertisment).permit(:name, :start_date, :end_date)
+      params.require(:advertisment).permit(:name, :start_date, :end_date, :image)
     end
 end
 

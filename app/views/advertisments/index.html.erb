@@ -49,6 +49,7 @@
           <% end %>
         </th>
         <th class="sortable"><%= sortable "advertisments.name", Advertisment.human_attribute_name(:name) %></th>
+        <th><%= Advertisment.human_attribute_name(:image) %></th>
         <th class="sortable"><%= sortable "advertisments.start_date", Advertisment.human_attribute_name(:start_date) %></th>
         <th class="sortable"><%= sortable "advertisments.end_date", Advertisment.human_attribute_name(:end_date) %></th>
         <th><%= t('.details') %></th>
@@ -65,6 +66,9 @@
             </div>
           </td>
           <td><%= truncate(advertisment.name, length: 30) %></td>
+          <td class="advertisment_image">
+            <%= image_tag advertisment.image.url(:thumb), class: 'img-responsive' %>
+          </td>
           <td class="advertisment_start_date">
             <%= advertisment.start_date %>
           </td>
