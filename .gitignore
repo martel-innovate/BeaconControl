@@ -30,3 +30,4 @@ config/sidekiq.yml
 /docs/_book
 
 vendor/gems/beacon_client
+.DS_Store
