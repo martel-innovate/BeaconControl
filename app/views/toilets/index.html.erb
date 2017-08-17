@@ -59,6 +59,7 @@
     <tbody>
       <% @toilets.each do |toilet| %>
           <tr>
+            <td class="zone-mark disable-select" style="background: transparent"></td>
             <td class="with-checkbox">
               <div class="custom-checkbox">
                 <input type="checkbox" id='<%="toilet_#{toilet.id}"%>' value=<%= toilet.id %> name="toilet_ids[]" class="checkbox value-checkbox" />
@@ -67,7 +68,7 @@
             </td>
             <td><%= truncate(toilet.name, length: 30) %></td>
             <td class="toilet_longtitude">
-                test
+              <%= Toilet::KINDS[toilet.kind] %>
             </td>
             <td class="toilet_latitude">
               test
