@@ -39,6 +39,25 @@
       </div>
     <% end %>
   </div>
+  <table class="table table-list table-striped live-search-table" data-search-input="#search_table_beacon_name">
+    <thead>
+      <tr>
+        <th colspan="2" class="select-all-checkbox">
+          <% if @toilets.present? %>
+            <div class="custom-checkbox">
+              <input type="checkbox" id="select_all" class="checkbox" value="select_all" />
+              <label for="select_all"></label>
+            </div>
+          <% end %>
+        </th>
+        <th class="sortable"><%= sortable "toilets.name", Toilet.human_attribute_name(:name) %></th>
+        <th class="sortable"><%= t('.kind') %></th>
+        <th class="sortable"><%= t('.accessible') %></th>
+        <th><%= t('.details') %></th>
+      </tr>
+    </thead>
+    <tbody>
+  </table>
 </div>
 
 <%= prompt_modal(t('toilets.modal.title'), t('toilets.modal.body')) %>
