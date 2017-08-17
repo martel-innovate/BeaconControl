@@ -71,7 +71,7 @@
               <%= Toilet::KINDS[toilet.kind] %>
             </td>
             <td class="toilet_latitude">
-              test
+              <%= Toilet::ACCESSIBLES[toilet.accessible] %>
             </td>
             <td class="disable-select">
               <%= button_link :edit, edit_toilet_path(toilet), dynamic_width: true %>
