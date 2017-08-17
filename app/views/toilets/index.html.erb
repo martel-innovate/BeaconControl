@@ -11,5 +11,34 @@
 <% end %>
 
 <div class="beacons-table linked-rows">
+  <div class="table-header">
+    <%= simple_form_for :search_table, method: :get, html: { class: %W[form-inline] } do |f| %>
+      <div class="row">
+        <div class="col-md-2 col-sm-4 col-xs-12">
+          <%= button_link :add_new, new_toilet_path, class: %w[btn-success], i18n: 'toilets.index' %>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-12 hidden batch-delete">
+          <%= button_link :batch_delete, batch_delete_toilets_path, class: %w[btn-danger], dynamic_width: true, with_modal: true %>
+        </div>
+        <div class="col-md-3 col-sm-8 col-xs-12 pull-right">
+          <div class="has-feedback">
+            <%= f.input :toilet_name,
+                        label: false,
+                        placeholder: t(".search"),
+                        required: false,
+                        input_html: {
+                            name: "toilet_name",
+                            value: params[:toilet_name],
+                            class: %W[ sortable_table_search_field ]
+                        },
+                        wrapper_html: { class: 'pull-right' }
+            %>
+            <i class="glyphicon glyphicon-search form-control-feedback"></i>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <%= prompt_modal(t('toilets.modal.title'), t('toilets.modal.body')) %>
