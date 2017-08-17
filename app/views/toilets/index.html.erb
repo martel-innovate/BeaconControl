@@ -57,6 +57,26 @@
       </tr>
     </thead>
     <tbody>
+      <% @toilets.each do |toilet| %>
+          <tr>
+            <td class="with-checkbox">
+              <div class="custom-checkbox">
+                <input type="checkbox" id='<%="toilet_#{toilet.id}"%>' value=<%= toilet.id %> name="toilet_ids[]" class="checkbox value-checkbox" />
+                <label for="<%="toilet_#{toilet.id}"%>"></label>
+              </div>
+            </td>
+            <td><%= truncate(toilet.name, length: 30) %></td>
+            <td class="toilet_longtitude">
+              <%= Toilet::KINDS[toilet.kind] %>
+            </td>
+            <td class="toilet_latitude">
+              <%= Toilet::ACCESSIBLES[toilet.accessible] %>
+            </td>
+            <td class="disable-select">
+              <%= button_link :edit, edit_toilet_path(toilet), dynamic_width: true %>
+            </td>
+          </tr>
+      <% end %>
     </tbody>
   </table>
 </div>
