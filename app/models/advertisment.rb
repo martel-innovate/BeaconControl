@@ -24,4 +24,6 @@ class Advertisment < ActiveRecord::Base
 
     order("#{sorted_column} #{direction}")
   }
+
+  scope :active, -> { where("? BETWEEN start_date AND end_date", Time.now.to_date)}
 end

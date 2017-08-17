@@ -189,6 +189,7 @@ BeaconControl::Application.routes.draw do
       resources :schedules, only: [:index]
       resources :bus_stops, only: [:index]
       resources :places, only: [:index, :show]
+      resources :advertisments, only: [:index]
 
       resources :beacons, only: [:index, :create, :update, :destroy] do
         collection do
