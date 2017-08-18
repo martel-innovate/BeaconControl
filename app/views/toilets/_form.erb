@@ -18,7 +18,7 @@
           <div class="col-md-12 form-group">
             <label>Type</label>
             <div>
-              <%= f.collection_radio_buttons(:kind, Toilet::KINDS.each_with_index.map { |k,i| [i, k] }, :first, :last, { checked: @toilet.try(:kind) ? 0 : toilet.kind }) do |b| %>
+              <%= f.collection_radio_buttons(:kind, Toilet::KINDS.each_with_index.map { |k,i| [i, k] }, :first, :last, { checked: @toilet.try(:kind) ? 0 : @toilet.kind }) do |b| %>
                 <span class="radio-inline">
                   <%= b.label do %>
                     <%= b.radio_button + b.text %>
