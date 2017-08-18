@@ -373,10 +373,7 @@ en:
       enter_action: 'Enter Action'
       exit_action: 'Exit Action'
 
-      unassigned_zone: 'Unassigned'
-      unassigned_floor: 'N/A'
-      select_zone_prompt: 'Set zone'
-      select_floor_prompt: 'Set floor'
+      select_active_prompt: 'Set state'
       search: 'Search...'
 
     modal:

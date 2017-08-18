@@ -98,6 +98,7 @@ BeaconControl::Application.routes.draw do
   resources :zones
   resources :geofences, except: [:show] do
     collection do
+      patch :batch_update
       delete :batch_delete
       get :search
     end

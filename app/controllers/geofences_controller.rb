@@ -38,6 +38,11 @@ class GeofencesController < AdminController
     redirect_to geofences_path
   end
 
+  def batch_update
+		Geofence.where(id: params[:ids].split(',')).update_all(active: params[:active])
+    redirect_to geofences_path
+  end
+
   def geofence_params
     params.require(:geofence).permit(
       :name,
