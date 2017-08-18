@@ -119,6 +119,8 @@ gem 'kaminari'
 
 gem 'httparty'
 
+gem 'rails_12factor', group: :production
+
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
