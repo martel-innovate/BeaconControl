@@ -28,16 +28,7 @@
             </div>
           </div>
           <div class="col-md-12 form-group">
-            <label>Accessible</label>
-            <div>
-              <%= f.collection_radio_buttons(:accessible, Toilet::ACCESSIBLES.each_with_index.map { |k,i| [i, k] }, :first, :last) do |b| %>
-                <span class="radio-inline">
-                  <%= b.label do %>
-                    <%= b.radio_button + b.text %>
-                  <% end %>
-                </span>
-              <% end %>
-            </div>
+            <%= f.input :accessible, collection: Toilet::ACCESSIBLES.each_with_index.map { |k,i| [k, i] }, include_blank: true, selected: @toilet.accessible %>
           </div>
         </div>
 
