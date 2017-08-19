@@ -8,12 +8,12 @@
       </div>
       <div class="control-group">
         <div class="controls">
-          <%= f.input :start_date, as: :string, class: "datepicker form-control" %>
+          <%= f.input :start_date, as: :string, class: "datepicker form-control", input_html: { data: { required: true } } %>
         </div>
       </div>
       <div class="control-group">
         <div class="controls">
-          <%= f.input :end_date, as: :string, class: "datepicker form-control" %>
+          <%= f.input :end_date, as: :string, class: "datepicker form-control", input_html: { data: { required: true } } %>
         </div>
       </div>
       <div class="control-group">

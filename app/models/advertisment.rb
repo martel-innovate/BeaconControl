@@ -1,6 +1,7 @@
 class Advertisment < ActiveRecord::Base
   SORTABLE_COLUMNS = %w(advertisments.name advertisments.start_date advertisments.end_date)
 
+  # validates_presence_of :name, :start_date, :end_date, :image
   mount_uploader :image, AdvertismentImageUploader
 
   scope :with_name, ->(name) {
