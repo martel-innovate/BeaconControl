@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD 3-Clause License found in the
- * LICENSE.txt file in the root directory of this source tree. 
+ * LICENSE.txt file in the root directory of this source tree.
  */
 
 // This is a manifest file that'll be compiled into application.js, which will include all the files
@@ -72,3 +72,4 @@
 // ### Controllers
 //= require_tree ./controllers
 //
+//= require dropzone.js
