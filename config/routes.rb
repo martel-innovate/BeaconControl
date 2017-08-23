@@ -9,6 +9,7 @@
 require_relative '../lib/app_status'
 
 BeaconControl::Application.routes.draw do
+
   mount(
     AppStatus::Rack.new do |config|
       config.add_class AppStatus::DatabaseCheckRequest, name: :database_ok?
@@ -142,6 +143,13 @@ BeaconControl::Application.routes.draw do
     end
   end
 
+  resources :home_sliders, except: [:show] do
+    collection do
+      delete :batch_delete
+      get :search
+    end
+  end
+
   scope 'api/v1', scope: 'api' do
     use_doorkeeper do
       skip_controllers :applications, :authorized_applications
@@ -198,6 +206,7 @@ BeaconControl::Application.routes.draw do
       resources :places, only: [:index, :show]
       resources :toilets, only: [:index]
       resources :advertisments, only: [:index]
+      resources :home_sliders, only: [:index]
 
       resources :beacons, only: [:index, :create, :update, :destroy] do
         collection do

@@ -236,6 +236,24 @@ en:
       title: Warning!
       body: Are you sure you want to delete these advertisments?
 
+  home_sliders:
+    form:
+      save: Save
+      cancel: Cancel
+    index:
+      title: Home Sliders
+      new: Add
+      batch_delete: Delete Sliders
+      search: Search
+      details: Details
+    new:
+      title: New Slider
+    edit:
+      title: Edit Slider
+    modal:
+      title: Warning!
+      body: Are you sure you want to delete these sliders?
+
   schedules:
     template: 'Template'
     edit:
