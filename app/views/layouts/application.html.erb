@@ -91,6 +91,7 @@
             <li><%= active_link_to t('.menu.notifications'), main_app.notifications_path %></li>
             <li><%= active_link_to t('.menu.places'), main_app.places_path %></li>
             <li><%= active_link_to t('.menu.advertisments'), main_app.advertisments_path %></li>
+            <li><%= active_link_to t('.menu.home_sliders'), main_app.home_sliders_path %></li>
             <% if can? :manage, Application %>
               <li><%= active_link_to t('.menu.applications'), main_app.applications_path %></li>
             <% end %>
@@ -138,6 +139,7 @@
             <li><%= active_link_to awesome_icon(:bell, t('.menu.notifications')), main_app.notifications_path %></li>
             <li><%= active_link_to awesome_icon(:bank, t('.menu.places')), main_app.places_path %></li>
             <li><%= active_link_to awesome_icon(:image, t('.menu.advertisments')), main_app.advertisments_path %></li>
+            <li><%= active_link_to awesome_icon(:sliders, t('.menu.home_sliders')), main_app.home_sliders_path %></li>
             <% if can? :manage, Application %>
               <li><%= active_link_to bos_icon(:application, t('.menu.applications')), main_app.applications_path, data: walkthrough_data(4, :applications) %></li>
             <% end %>
