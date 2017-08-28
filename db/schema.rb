@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823151252) do
+ActiveRecord::Schema.define(version: 20170828073547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,9 +98,11 @@ ActiveRecord::Schema.define(version: 20170823151252) do
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "image"
+    t.integer  "application_id"
+    t.integer  "customer_id"
   end
 
   create_table "application_extensions", force: :cascade do |t|
@@ -214,12 +216,14 @@ ActiveRecord::Schema.define(version: 20170823151252) do
 
   create_table "bus_stops", force: :cascade do |t|
     t.string   "name"
-    t.decimal  "longtitude", precision: 15, scale: 11
-    t.decimal  "latitude",   precision: 15, scale: 11
+    t.decimal  "longtitude",     precision: 15, scale: 11
+    t.decimal  "latitude",       precision: 15, scale: 11
     t.integer  "radius"
     t.integer  "account_id"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.integer  "application_id"
+    t.integer  "customer_id"
   end
 
   add_index "bus_stops", ["account_id"], name: "index_bus_stops_on_account_id", using: :btree
@@ -405,13 +409,15 @@ ActiveRecord::Schema.define(version: 20170823151252) do
 
   create_table "geofences", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "active",                               default: true
-    t.decimal  "longtitude", precision: 15, scale: 11
-    t.decimal  "latitude",   precision: 15, scale: 11
+    t.boolean  "active",                                   default: true
+    t.decimal  "longtitude",     precision: 15, scale: 11
+    t.decimal  "latitude",       precision: 15, scale: 11
     t.integer  "radius"
     t.integer  "account_id"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+    t.integer  "application_id"
+    t.integer  "customer_id"
   end
 
   add_index "geofences", ["account_id"], name: "index_geofences_on_account_id", using: :btree
@@ -422,8 +428,10 @@ ActiveRecord::Schema.define(version: 20170823151252) do
     t.date     "end_date"
     t.string   "slider1"
     t.string   "slider2"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "application_id"
+    t.integer  "customer_id"
   end
 
   create_table "mobile_devices", force: :cascade do |t|
@@ -447,6 +455,7 @@ ActiveRecord::Schema.define(version: 20170823151252) do
     t.text     "message"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "customer_id"
   end
 
   add_index "notifications", ["application_id"], name: "index_notifications_on_application_id", using: :btree
@@ -518,6 +527,8 @@ ActiveRecord::Schema.define(version: 20170823151252) do
     t.string   "email"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "application_id"
+    t.integer  "customer_id"
   end
 
   create_table "rpush_apps", force: :cascade do |t|
@@ -584,16 +595,18 @@ ActiveRecord::Schema.define(version: 20170823151252) do
 
   create_table "schedules", force: :cascade do |t|
     t.string   "name"
-    t.integer  "kind",         default: 1
+    t.integer  "kind",           default: 1
     t.date     "start_date"
     t.date     "end_date"
     t.time     "start_time"
     t.time     "end_time"
-    t.integer  "trigger_time", default: 0
+    t.integer  "trigger_time",   default: 0
     t.integer  "beacon_id"
     t.integer  "account_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "application_id"
+    t.integer  "customer_id"
   end
 
   add_index "schedules", ["account_id"], name: "index_schedules_on_account_id", using: :btree
@@ -605,8 +618,10 @@ ActiveRecord::Schema.define(version: 20170823151252) do
     t.integer  "kind"
     t.text     "description"
     t.integer  "account_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "application_id"
+    t.integer  "customer_id"
   end
 
   add_index "toilets", ["account_id"], name: "index_toilets_on_account_id", using: :btree

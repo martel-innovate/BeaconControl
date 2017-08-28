@@ -49,6 +49,16 @@ class Admin < ActiveRecord::Base
   has_many :customers_applications, foreign_key: :customer_id, class_name: 'ApplicationsCustomer', dependent: :destroy
   has_many :customer_applications, through: :customers_applications, source: :application
 
+  # newly added data
+  has_many :geofences, foreign_key: :customer_id
+  has_many :schedules, foreign_key: :customer_id
+  has_many :bus_stops, foreign_key: :customer_id
+  has_many :toilets, foreign_key: :customer_id
+  has_many :notifications, foreign_key: :customer_id
+  has_many :places, foreign_key: :customer_id
+  has_many :advertisments, foreign_key: :customer_id
+  has_many :home_sliders, foreign_key: :customer_id
+
   delegate :applications, :test_application, :triggers, :activities, to: :account
 
 
