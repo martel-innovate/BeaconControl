@@ -12,40 +12,20 @@ module S2sApi
       inherit_resources
       load_and_authorize_resource
 
+      PER_PAGE = 20
+
       self.responder = S2sApiResponder
+      has_scope :with_active, as: :active
+      has_scope :with_customer_id, as: :customer_id
+      has_scope :with_application_id, as: :application_id
 
       actions :index
-      def index
-        render json: to_custom_json(@geofences.where(search_params))
-      end
 
       private
-
-      def to_custom_json(geofences)
-        geofences.map { |geofence|
-          {
-            id: geofence.id,
-            name: geofence.name,
-            lat: geofence.latitude,
-            lng: geofence.longtitude,
-            radius: geofence.radius,
-            actionEnter: geofence.enter_action.name,
-            contentEnter: geofence.enter_action.message,
-            actionExit: geofence.exit_action.name,
-            contentExit: geofence.exit_action.message,
-            active: geofence.active,
-            enterState: geofence.enter_action.active,
-            exitState: geofence.exit_action.active
-          }
-        }.to_json
-      end
-
       def collection
-        super.includes(:enter_action, :exit_action)
-      end
-
-      def search_params
-        params.permit(:active)
+        params[:page] ||= 1
+        params[:per_page] ||= PER_PAGE
+        apply_scopes(super).page(params[:page]).per(params[:per_page])
       end
     end
   end

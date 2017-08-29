@@ -12,7 +12,12 @@ module S2sApi
       inherit_resources
       load_and_authorize_resource
 
+      PER_PAGE = 20
+
       self.responder = S2sApiResponder
+      has_scope :with_active, as: :active
+      has_scope :with_customer_id, as: :customer_id
+      has_scope :with_application_id, as: :application_id
 
       actions :index
       def index
@@ -60,7 +65,9 @@ module S2sApi
               video: {
                 url: schedule.coupon.try(:video).try(:file_url)
               }
-            }
+            },
+            customer_id: schedule.customer_id,
+            application_id: schedule.application_id
           }
         }.to_json
       end

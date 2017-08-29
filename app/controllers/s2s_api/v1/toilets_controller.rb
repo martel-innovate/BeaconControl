@@ -12,41 +12,22 @@ module S2sApi
       inherit_resources
       load_and_authorize_resource
 
+      PER_PAGE = 20
+
+      has_scope :with_timestamp, as: :timestamp
+      has_scope :with_application_id, as: :application_id
+      has_scope :with_customer_id, as: :customer_id
+
       self.responder = S2sApiResponder
 
       actions :index
-      def index
-        render json: to_custom_json(search_by_timestamp)
-      end
 
       private
 
-      def search_by_timestamp
-        search_params[:timestamp] ? @toilets.where('updated_at > ?', search_params[:timestamp]) : @toilets
-      end
-
-      def to_custom_json(collection)
-        collection.map { |c|
-          {
-            id: c.id,
-            name: c.name,
-            type: Toilet::KINDS[c.kind],
-            accessible: Toilet::ACCESSIBLES[c.accessible],
-            description: c.description,
-            address: {
-              street: c.address.street,
-              zip: c.address.zip,
-              city: c.address.city,
-              latitude: c.address.latitude,
-              longtitude: c.address.longtitude
-            },
-            timestamp: c.updated_at
-          }
-        }.to_json
-      end
-
-      def search_params
-        params.permit(:timestamp)
+      def collection
+        params[:page] ||= 1
+        params[:per_page] ||= PER_PAGE
+        apply_scopes(super).page(params[:page]).per(params[:per_page])
       end
     end
   end

@@ -6,6 +6,24 @@ class Schedule < ActiveRecord::Base
 
   validates :start_date, :start_time, :end_time, :name, presence: true
 
+  scope :with_active, ->(active) {
+    if active.present?
+      where(active: active)
+    end
+  }
+
+  scope :with_application_id, ->(application_id) {
+    if application_id.present?
+      where(application_id: application_id)
+    end
+  }
+
+  scope :with_customer_id, ->(customer_id) {
+    if customer_id.present?
+      where(customer_id: customer_id)
+    end
+  }
+
   def kind_name
     trigger_time > 0 ? 'Nach x Minuten' : 'Sofort'
   end
