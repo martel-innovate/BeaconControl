@@ -11,7 +11,7 @@ module S2sApi
     require "s2s_api_responder"
 
     class BaseController < ApplicationController
-      #before_action :doorkeeper_authorize!
+      before_action :doorkeeper_authorize!
 
       rescue_from StandardError do |e|
         Rails.logger.info e.message
@@ -37,7 +37,10 @@ module S2sApi
       private
 
       def current_admin
-        @current_admin = Admin.first
+        @current_admin ||= begin
+          admin = Admin.find(doorkeeper_token.resource_owner_id)
+          admin ? AdminDecorator.new(admin) : nil
+        end
       end
 
       def current_account
