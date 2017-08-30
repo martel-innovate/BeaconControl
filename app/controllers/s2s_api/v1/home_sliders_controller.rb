@@ -11,6 +11,9 @@ module S2sApi
                          direction: 'desc'
                        }
       has_scope :with_name, as: :home_slider_name
+      has_scope :with_application_id, as: :application_id
+      has_scope :with_customer_id, as: :customer_id
+
       self.responder = S2sApiResponder
 
       actions :index
