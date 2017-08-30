@@ -6,12 +6,6 @@ class Schedule < ActiveRecord::Base
 
   validates :start_date, :start_time, :end_time, :name, presence: true
 
-  scope :with_active, ->(active) {
-    if active.present?
-      where(active: active)
-    end
-  }
-
   scope :with_application_id, ->(application_id) {
     if application_id.present?
       where(application_id: application_id)
