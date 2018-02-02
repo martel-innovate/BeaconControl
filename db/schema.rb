@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828073547) do
+ActiveRecord::Schema.define(version: 20160127133722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,18 +30,6 @@ ActiveRecord::Schema.define(version: 20170828073547) do
     t.integer  "brand_id",   null: false
   end
 
-  create_table "actions", force: :cascade do |t|
-    t.string   "name"
-    t.string   "message"
-    t.string   "type"
-    t.boolean  "active"
-    t.integer  "geofence_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "actions", ["geofence_id"], name: "index_actions_on_geofence_id", using: :btree
-
   create_table "activities", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -49,20 +37,6 @@ ActiveRecord::Schema.define(version: 20170828073547) do
     t.text     "payload"
     t.string   "scheme"
   end
-
-  create_table "addresses", force: :cascade do |t|
-    t.string   "street"
-    t.string   "zip"
-    t.string   "city"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-    t.integer  "addressable_id"
-    t.string   "addressable_type"
-    t.decimal  "longtitude",       precision: 15, scale: 11
-    t.decimal  "latitude",         precision: 15, scale: 11
-  end
-
-  add_index "addresses", ["addressable_id", "addressable_type"], name: "index_addresses_on_addressable_id_and_addressable_type", using: :btree
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -85,25 +59,12 @@ ActiveRecord::Schema.define(version: 20170828073547) do
     t.integer  "role",                   default: 0
     t.string   "correlation_id"
     t.boolean  "walkthrough",            default: false
-    t.string   "username"
   end
 
   add_index "admins", ["account_id"], name: "index_admins_on_account_id", using: :btree
   add_index "admins", ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true, using: :btree
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
-  add_index "admins", ["username"], name: "index_admins_on_username", unique: true, using: :btree
-
-  create_table "advertisments", force: :cascade do |t|
-    t.string   "name"
-    t.date     "start_date"
-    t.date     "end_date"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.string   "image"
-    t.integer  "application_id"
-    t.integer  "customer_id"
-  end
 
   create_table "application_extensions", force: :cascade do |t|
     t.integer  "application_id"
@@ -134,7 +95,6 @@ ActiveRecord::Schema.define(version: 20170828073547) do
     t.datetime "updated_at",                 null: false
     t.integer  "account_id"
     t.boolean  "test",       default: false
-    t.string   "fcm_key"
   end
 
   add_index "applications", ["account_id"], name: "index_applications_on_account_id", using: :btree
@@ -145,16 +105,6 @@ ActiveRecord::Schema.define(version: 20170828073547) do
   end
 
   add_index "applications_beacons", ["application_id", "beacon_id"], name: "applications_beacons_index", using: :btree
-
-  create_table "applications_customers", force: :cascade do |t|
-    t.integer  "applications_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "customer_id"
-  end
-
-  add_index "applications_customers", ["applications_id"], name: "index_applications_customers_on_applications_id", using: :btree
-  add_index "applications_customers", ["customer_id"], name: "index_applications_customers_on_customer_id", using: :btree
 
   create_table "applications_zones", force: :cascade do |t|
     t.integer "application_id"
@@ -214,41 +164,6 @@ ActiveRecord::Schema.define(version: 20170828073547) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "bus_stops", force: :cascade do |t|
-    t.string   "name"
-    t.decimal  "longtitude",     precision: 15, scale: 11
-    t.decimal  "latitude",       precision: 15, scale: 11
-    t.integer  "radius"
-    t.integer  "account_id"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.integer  "application_id"
-    t.integer  "customer_id"
-  end
-
-  add_index "bus_stops", ["account_id"], name: "index_bus_stops_on_account_id", using: :btree
-
-  create_table "contacts", force: :cascade do |t|
-    t.string   "name"
-    t.string   "position"
-    t.string   "phone_number"
-    t.integer  "admin_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "contacts", ["admin_id"], name: "index_contacts_on_admin_id", using: :btree
-
-  create_table "coupon_attachments", force: :cascade do |t|
-    t.integer  "coupon_id"
-    t.string   "file"
-    t.string   "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "coupon_attachments", ["coupon_id"], name: "index_coupon_attachments_on_coupon_id", using: :btree
-
   create_table "coupon_images", force: :cascade do |t|
     t.integer  "coupon_id"
     t.string   "file"
@@ -274,11 +189,9 @@ ActiveRecord::Schema.define(version: 20170828073547) do
     t.string   "button_background_color"
     t.string   "button_label"
     t.string   "button_link"
-    t.integer  "schedule_id"
   end
 
   add_index "coupons", ["activity_id"], name: "index_coupons_on_activity_id", using: :btree
-  add_index "coupons", ["schedule_id"], name: "index_coupons_on_schedule_id", using: :btree
   add_index "coupons", ["template"], name: "index_coupons_on_template", using: :btree
 
   create_table "custom_attributes", force: :cascade do |t|
@@ -290,15 +203,6 @@ ActiveRecord::Schema.define(version: 20170828073547) do
   end
 
   add_index "custom_attributes", ["activity_id"], name: "index_custom_attributes_on_activity_id", using: :btree
-
-  create_table "customer_logos", force: :cascade do |t|
-    t.string   "file"
-    t.integer  "contact_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "customer_logos", ["contact_id"], name: "index_customer_logos_on_contact_id", using: :btree
 
   create_table "ext_analytics_beacons_dwell_time_aggregations", force: :cascade do |t|
     t.integer "ext_analytics_dwell_time_aggregation_id", null: false
@@ -407,33 +311,6 @@ ActiveRecord::Schema.define(version: 20170828073547) do
     t.string  "value"
   end
 
-  create_table "geofences", force: :cascade do |t|
-    t.string   "name"
-    t.boolean  "active",                                   default: true
-    t.decimal  "longtitude",     precision: 15, scale: 11
-    t.decimal  "latitude",       precision: 15, scale: 11
-    t.integer  "radius"
-    t.integer  "account_id"
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
-    t.integer  "application_id"
-    t.integer  "customer_id"
-  end
-
-  add_index "geofences", ["account_id"], name: "index_geofences_on_account_id", using: :btree
-
-  create_table "home_sliders", force: :cascade do |t|
-    t.string   "name"
-    t.date     "start_date"
-    t.date     "end_date"
-    t.string   "slider1"
-    t.string   "slider2"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "application_id"
-    t.integer  "customer_id"
-  end
-
   create_table "mobile_devices", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "push_token"
@@ -448,17 +325,6 @@ ActiveRecord::Schema.define(version: 20170828073547) do
 
   add_index "mobile_devices", ["active"], name: "index_mobile_devices_on_active", using: :btree
   add_index "mobile_devices", ["user_id"], name: "index_mobile_devices_on_user_id", using: :btree
-
-  create_table "notifications", force: :cascade do |t|
-    t.integer  "application_id"
-    t.string   "title"
-    t.text     "message"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "customer_id"
-  end
-
-  add_index "notifications", ["application_id"], name: "index_notifications_on_application_id", using: :btree
 
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer  "resource_owner_id", null: false
@@ -512,24 +378,6 @@ ActiveRecord::Schema.define(version: 20170828073547) do
   end
 
   add_index "old_passwords", ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable", using: :btree
-
-  create_table "places", force: :cascade do |t|
-    t.string   "type"
-    t.string   "name"
-    t.string   "address"
-    t.string   "zip_code"
-    t.string   "city"
-    t.text     "opening_hours"
-    t.boolean  "has_opening_hours", default: true
-    t.text     "entrance"
-    t.string   "website"
-    t.string   "phone"
-    t.string   "email"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "application_id"
-    t.integer  "customer_id"
-  end
 
   create_table "rpush_apps", force: :cascade do |t|
     t.string   "name",                                null: false
@@ -593,39 +441,6 @@ ActiveRecord::Schema.define(version: 20170828073547) do
 
   add_index "rpush_notifications", ["delivered", "failed"], name: "index_rpush_notifications_multi", where: "((NOT delivered) AND (NOT failed))", using: :btree
 
-  create_table "schedules", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "kind",           default: 1
-    t.date     "start_date"
-    t.date     "end_date"
-    t.time     "start_time"
-    t.time     "end_time"
-    t.integer  "trigger_time",   default: 0
-    t.integer  "beacon_id"
-    t.integer  "account_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "application_id"
-    t.integer  "customer_id"
-  end
-
-  add_index "schedules", ["account_id"], name: "index_schedules_on_account_id", using: :btree
-  add_index "schedules", ["beacon_id"], name: "index_schedules_on_beacon_id", using: :btree
-
-  create_table "toilets", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "accessible"
-    t.integer  "kind"
-    t.text     "description"
-    t.integer  "account_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "application_id"
-    t.integer  "customer_id"
-  end
-
-  add_index "toilets", ["account_id"], name: "index_toilets_on_account_id", using: :btree
-
   create_table "triggers", force: :cascade do |t|
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -676,11 +491,7 @@ ActiveRecord::Schema.define(version: 20170828073547) do
   add_foreign_key "beacon_configs", "beacons"
   add_foreign_key "beacon_proximity_fields", "beacons"
   add_foreign_key "beacons", "accounts", name: "index_beacons_on_account_id"
-  add_foreign_key "coupon_attachments", "coupons"
   add_foreign_key "mobile_devices", "users"
-  add_foreign_key "notifications", "applications"
   add_foreign_key "rpush_apps", "applications"
-  add_foreign_key "schedules", "accounts"
-  add_foreign_key "schedules", "beacons"
   add_foreign_key "users", "applications"
 end

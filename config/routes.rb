@@ -3,13 +3,12 @@
 # All rights reserved.
 #
 # This source code is licensed under the BSD 3-Clause License found in the
-# LICENSE.txt file in the root directory of this source tree.
+# LICENSE.txt file in the root directory of this source tree. 
 ###
 
 require_relative '../lib/app_status'
 
 BeaconControl::Application.routes.draw do
-
   mount(
     AppStatus::Rack.new do |config|
       config.add_class AppStatus::DatabaseCheckRequest, name: :database_ok?
@@ -60,15 +59,6 @@ BeaconControl::Application.routes.draw do
     end
   end
 
-  resources :customers, except: [:new, :edit] do
-    put 'update_password' => 'customers#update_password'
-    collection do
-      delete :batch_delete
-    end
-  end
-
-  resources :notifications, only: [:new, :index, :create]
-
   resource :profile, only: [:update]
 
   resources :admins, except: [:show], path: 'users' do
@@ -97,26 +87,6 @@ BeaconControl::Application.routes.draw do
   end
   resources :beacons_search, only: [:index]
   resources :zones
-  resources :geofences, except: [:show] do
-    collection do
-      patch :batch_update
-      delete :batch_delete
-      get :search
-    end
-  end
-  resources :schedules
-  resources :bus_stops, except: [:show] do
-    collection do
-      delete :batch_delete
-      get :search
-    end
-  end
-  resources :toilets, except: [:show] do
-    collection do
-      delete :batch_delete
-      get :search
-    end
-  end
 
   resource :map
 
@@ -126,27 +96,6 @@ BeaconControl::Application.routes.draw do
     member do
       put :activate
       put :deactivate
-    end
-  end
-
-  resources :places, except: [:show] do
-    collection do
-      delete :batch_delete
-      get :search
-    end
-  end
-
-  resources :advertisments, except: [:show] do
-    collection do
-      delete :batch_delete
-      get :search
-    end
-  end
-
-  resources :home_sliders, except: [:show] do
-    collection do
-      delete :batch_delete
-      get :search
     end
   end
 
@@ -199,14 +148,6 @@ BeaconControl::Application.routes.draw do
           get :beacons
         end
       end
-
-      resources :geofences, only: [:index]
-      resources :schedules, only: [:index]
-      resources :bus_stops, only: [:index]
-      resources :places, only: [:index, :show]
-      resources :toilets, only: [:index]
-      resources :advertisments, only: [:index]
-      resources :home_sliders, only: [:index]
 
       resources :beacons, only: [:index, :create, :update, :destroy] do
         collection do
