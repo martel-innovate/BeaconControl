@@ -91,6 +91,8 @@ gem 'naught'
 gem 'nested_form'
 gem 'rpush', '~>2.4.0'
 
+gem 'omniauth_openid_connect'
+
 gem 'virtus'
 
 gem 'has_scope'

@@ -3,7 +3,7 @@
 # All rights reserved.
 #
 # This source code is licensed under the BSD 3-Clause License found in the
-# LICENSE.txt file in the root directory of this source tree. 
+# LICENSE.txt file in the root directory of this source tree.
 ###
 
 class DeviseCreateAdmins < ActiveRecord::Migration
@@ -12,6 +12,10 @@ class DeviseCreateAdmins < ActiveRecord::Migration
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
+
+      ## OpenID
+      t.string :provider
+      t.string :uid
 
       ## Recoverable
       t.string   :reset_password_token

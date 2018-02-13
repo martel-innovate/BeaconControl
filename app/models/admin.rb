@@ -16,11 +16,11 @@ class Admin < ActiveRecord::Base
   if AppConfig.registerable
     devise :database_authenticatable, :registerable,
            :rememberable, :trackable, :validatable,
-           :confirmable, :recoverable, :password_archivable
+           :confirmable, :recoverable, :password_archivable, :omniauthable, omniauth_providers: %i[openid_connect]
   else
-    devise :database_authenticatable,
+    devise :database_authenticatable, :omniauthable,
            :rememberable, :trackable, :validatable,
-           :confirmable, :recoverable, :password_archivable
+           :confirmable, :recoverable, :password_archivable, :omniauthable, omniauth_providers: %i[openid_connect]
   end
 
   enum role: [:admin, :beacon_manager]
@@ -64,6 +64,16 @@ class Admin < ActiveRecord::Base
   end
 
   validates :password, confirmation: true, on: :update, if: -> { password.present? }
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |admin|
+      admin.email = auth.info.email
+      admin.password = Devise.friendly_token[0,20]
+      # If you are using confirmable and the provider(s) you use validate emails,
+      # uncomment the line below to skip the confirmation emails.
+      admin.skip_confirmation!
+    end
+  end
 
   def account_managers
     account.admins.beacon_managers
