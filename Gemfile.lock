@@ -243,6 +243,7 @@ GEM
     moneta (0.8.0)
     multi_json (1.11.2)
     multipart-post (2.0.0)
+    mysql2 (0.3.21)
     naught (1.0.0)
     nested_form (0.3.2)
     net-http-persistent (2.9.4)
@@ -476,6 +477,7 @@ DEPENDENCIES
   less-rails-bootstrap
   letter_opener
   moneta
+  mysql2 (~> 0.3.18)
   naught
   nested_form
   omniauth_openid_connect
