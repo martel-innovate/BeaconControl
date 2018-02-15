@@ -13,6 +13,7 @@
 #
 default: &default
   host: <%= ENV['BEACONCONTROL_MYSQL_HOST'] %>
+  port: <%= ENV['BEACONCONTROL_MYSQL_PORT'] %>
   adapter: mysql2
   encoding: utf8
   pool: 5
