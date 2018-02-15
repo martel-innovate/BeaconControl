@@ -49,8 +49,7 @@ BeaconControl::Application.routes.draw do
     registrations: 'admin/registrations',
     confirmations: 'admin/confirmations',
     passwords: 'admin/passwords',
-    sessions: 'admin/sessions',
-    omniauth_callbacks: 'admin/omniauth_callbacks'
+    sessions: 'admin/sessions'
   }
   as :admin do
     put 'admins/confirmation' => 'admin/confirmations#update', as: 'update_admin_confirmation'

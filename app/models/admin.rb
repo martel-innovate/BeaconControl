@@ -16,11 +16,11 @@ class Admin < ActiveRecord::Base
   if AppConfig.registerable
     devise :database_authenticatable, :registerable,
            :rememberable, :trackable, :validatable,
-           :confirmable, :recoverable, :password_archivable, :omniauthable, :omniauth_providers => [:openid_connect]
+           :confirmable, :recoverable, :password_archivable
   else
     devise :database_authenticatable, :omniauthable,
            :rememberable, :trackable, :validatable,
-           :confirmable, :recoverable, :password_archivable, :omniauthable, :omniauth_providers => [:openid_connect]
+           :confirmable, :recoverable, :password_archivable
   end
 
   enum role: [:admin, :beacon_manager]

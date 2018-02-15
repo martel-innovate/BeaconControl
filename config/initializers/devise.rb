@@ -4,22 +4,6 @@ Devise.setup do |config|
 
   require 'devise/orm/active_record'
 
-  # Omniauth openID Connect
-  config.omniauth :openid_connect, {
-    name: "Keycloak",
-    scope: [:openid, :email],
-    response_type: :code,
-    client_options: {
-      port: 8080,
-      scheme: "https",
-      host: "localhost",
-      identifier: "account",
-      secret: "d2a46899-22ca-4f2b-8f9c-a4a2237a94e7",
-      redirect_uri: "http://localhost:8080/admins/auth/openid_connect/callback",
-      issuer: "http://localhost:8080/auth/realms/master/.well-known/openid-configuration"
-    },
-  }
-
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
   # just :email. You can configure it to use [:username, :subdomain], so for
