@@ -18,6 +18,8 @@
     <% end %>
   </h2>
 
+  <%= link_to "Sign in with Keycloak", admin_omniauth_authorize_path(:openid_connect) %>
+
   <% flash.each do |type, msg| %>
     <div class="<%= type %>"><%= msg %></div>
   <% end %>

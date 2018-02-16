@@ -4,6 +4,22 @@ Devise.setup do |config|
 
   require 'devise/orm/active_record'
 
+  config.omniauth :openid_connect, {
+    name: :openid_connect,
+    scope: [:openid, :email, :name],
+    response_type: :code,
+    client_options: {
+      port: 80,
+      scheme: "https",
+      host: "auth.s.orchestracities.com",
+      identifier: "beacon-manager",
+      secret: "bec9ee18-bd3d-4b8f-958a-d797af3eb231",
+      redirect_uri: "http://localhost:3000/admins/auth/openid_connect/callback",
+      discovery: true,
+      issuer: "https://auth.s.orchestracities.com/auth/realms/default"
+    },
+  }
+
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
   # just :email. You can configure it to use [:username, :subdomain], so for
