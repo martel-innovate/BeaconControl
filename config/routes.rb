@@ -3,7 +3,7 @@
 # All rights reserved.
 #
 # This source code is licensed under the BSD 3-Clause License found in the
-# LICENSE.txt file in the root directory of this source tree. 
+# LICENSE.txt file in the root directory of this source tree.
 ###
 
 require_relative '../lib/app_status'
@@ -49,7 +49,7 @@ BeaconControl::Application.routes.draw do
     registrations: 'admin/registrations',
     confirmations: 'admin/confirmations',
     passwords: 'admin/passwords',
-    sessions: 'admin/sessions',
+    sessions: 'admin/sessions'
   }
   as :admin do
     put 'admins/confirmation' => 'admin/confirmations#update', as: 'update_admin_confirmation'

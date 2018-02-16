@@ -6,7 +6,7 @@ gem 'rails', '4.2.0'
 # Use mysql/postgres as the database for Active Record
 
 gem 'pg'
-# gem 'mysql2'
+gem 'mysql2', '~> 0.3.18'
 
 # Active Record composite primary keys support
 gem 'composite_primary_keys'
@@ -90,6 +90,9 @@ gem 'responders'
 gem 'naught'
 gem 'nested_form'
 gem 'rpush', '~>2.4.0'
+
+gem 'omniauth_openid_connect'
+gem 'tzinfo-data'
 
 gem 'virtus'
 
