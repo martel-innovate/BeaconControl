@@ -18,6 +18,7 @@ default: &default
       enable_starttls_auto: false
     system_mailer_receiver: noreply@beacon-os.com
     create_test_app_on_new_account: true
+    google_api_key: key
     autoload_extensions:
       "Analytics":  false
       "DwellTime":  false
