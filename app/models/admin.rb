@@ -18,7 +18,7 @@ class Admin < ActiveRecord::Base
            :rememberable, :trackable, :validatable,
            :confirmable, :recoverable, :password_archivable, :omniauthable, :omniauth_providers => [:openid_connect]
   else
-    devise :database_authenticatable, :omniauthable,
+    devise :database_authenticatable,
            :rememberable, :trackable, :validatable,
            :confirmable, :recoverable, :password_archivable, :omniauthable, :omniauth_providers => [:openid_connect]
   end
@@ -66,7 +66,19 @@ class Admin < ActiveRecord::Base
   validates :password, confirmation: true, on: :update, if: -> { password.present? }
 
   def self.from_omniauth(auth)
-    puts auth
+    admin = Admin.find_by email: auth.info.email
+    if admin.nil?
+      password = Devise.friendly_token[0,20]
+      admin_factory = Admin::Factory.new(
+        provider:              auth.provider,
+        uid:                   auth.uid,
+        email:                 auth.info.email,
+        password:              password,
+        password_confirmation: password,
+      )
+      admin = admin_factory.create!
+    end
+    return admin
   end
 
   def account_managers

@@ -8,15 +8,15 @@ Devise.setup do |config|
     name: :openid_connect,
     scope: [:openid, :email, :name],
     response_type: :code,
+    discovery: true,
+    issuer: ENV["OPENID_ISSUER"] || "https://auth.s.orchestracities.com/auth/realms/default",
     client_options: {
-      port: 80,
+      port: ENV["OPENID_PORT"] || 80,
       scheme: "https",
-      host: "auth.s.orchestracities.com",
-      identifier: "beacon-manager",
-      secret: "bec9ee18-bd3d-4b8f-958a-d797af3eb231",
-      redirect_uri: "http://localhost:3000/admins/auth/openid_connect/callback",
-      discovery: true,
-      issuer: "https://auth.s.orchestracities.com/auth/realms/default"
+      host: ENV["OPENID_HOST"] || "auth.s.orchestracities.com",
+      identifier: ENV["OPENID_CLIENT_ID"] || "beacon-manager",
+      secret: ENV["OPENID_CLIENT_SECRET"] || "bec9ee18-bd3d-4b8f-958a-d797af3eb231",
+      redirect_uri: ENV["OPENID_REDIRECT_URI"] || "http://localhost:3000/admins/auth/openid_connect/callback"
     },
   }
 

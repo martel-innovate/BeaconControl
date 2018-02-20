@@ -12,12 +12,13 @@
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 #
 default: &default
-  host: localhost
+  host: <%= ENV['BEACONCONTROL_MYSQL_HOST'] %>
+  port: <%= ENV['BEACONCONTROL_MYSQL_PORT'] %>
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: root
-  password: pass
+  username: <%= ENV['BEACONCONTROL_MYSQL_USERNAME'] %>
+  password: <%= ENV['BEACONCONTROL_MYSQL_PASSWORD'] %>
 
 development:
   <<: *default
@@ -47,5 +48,5 @@ test:
 # You can use this database configuration with:
 #
 #   production:
-#     url: 
+#     url:
 #

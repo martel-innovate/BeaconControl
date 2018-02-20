@@ -2,7 +2,7 @@
 
 default: &default
   config:
-    secret_key_base: 895c28d0116e7e7ba8e25c8d547d512448deef94f5f7aa5d2386744f25f34b1b586e3e481b3b831f72f9ea54d06cc84bc61b53e6b7d6272f1f6d00b47c0da41f
+    secret_key_base: c684380abad95b8323c9970f31e90f2a8396560ed8b3242ebdbfe18dbef9e14928b10c1b102fb57608644d9c64b414f6e9d20a8f84002b4c9f725348176bcbd8
     registerable: false
     mailer_sender: noreply@beacon-os.com
     mailer_url_options:
@@ -13,7 +13,7 @@ default: &default
       port: 587
       domain: beacon-os.com
       user_name: noreply@beacon-os.com
-      password: 
+      password:
       authentication: plain
       enable_starttls_auto: false
     system_mailer_receiver: noreply@beacon-os.com
