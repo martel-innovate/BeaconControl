@@ -20,7 +20,7 @@ AppConfig = ApplicationConfig.new do
 
   config_key :token_expires_in, default: 7200 # seconds
 
-  config_key :coupon_url, default: ENV['COUPON_URL'] || ''
+  config_key :coupon_url, default: ENV['COUPON_URL'] || '192.168.1.218:3000'
 
   config_key :smtp_settings, default: {
     address:              'smtp.sendgrid.net',
@@ -40,6 +40,21 @@ AppConfig = ApplicationConfig.new do
   config_key :system_mailer_receiver, default: ENV['SYSTEM_MAILER_RECEIVER'] || 'no-reply@beaconctrl.com'
 
   config_key :redis_url, default: ENV['REDISTOGO_URL'] || 'redis://localhost:6379'
+
+  config_key :keycloak_issuer, default: ENV['KEYCLOAK_ISSUER'] || 'https://auth.s.orchestracities.com/auth/realms/default'
+  config_key :keycloak_host, default: ENV['KEYCLOAK_HOST'] || 'auth.s.orchestracities.com'
+  config_key :keycloak_port, default: ENV['KEYCLOAK_PORT'] || 80
+  config_key :keycloak_redirect_uri, default: ENV['KEYCLOAK_REDIRECT_URI'] || 'http://localhost:3000/admins/auth/openid_connect/callback'
+
+  config_key :keycloak_token_endpoint, default: ENV['KEYCLOAK_TOKEN_ENDPOINT'] || 'https://auth.s.orchestracities.com/auth/realms/default/protocol/openid-connect/token'
+  config_key :keycloak_token_introspect_endpoint, default: ENV['KEYCLOAK_TOKEN_INTROSPECT_ENDPOINT'] || 'https://auth.s.orchestracities.com/auth/realms/default/protocol/openid-connect/token/introspect'
+  config_key :keycloak_user_info_endpoint, default: ENV['KEYCLOAK_USER_INFO_ENDPOINT'] || 'https://auth.s.orchestracities.com/auth/realms/default/protocol/openid-connect/userinfo'
+  config_key :keycloak_client_id, default: ENV['KEYCLOAK_CLIENT_ID'] || 'beacon-manager'
+  
+  config_key :keycloak_client_secret, default: ENV['KEYCLOAK_CLIENT_SECRET']
+  config_key :keycloak_realm_admin_username, default: ENV['KEYCLOAK_REALM_ADMIN_USERNAME']
+  config_key :keycloak_realm_admin_password, default: ENV['KEYCLOAK_REALM_ADMIN_PASSWORD']
+  config_key :keycloak_realm_admin_secret, default: ENV['KEYCLOAK_REALM_ADMIN_SECRET']
 
   config_key :create_test_app_on_new_account, default: true
   config_key :autoload_extensions, default: {

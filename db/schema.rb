@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20180216133045) do
     t.boolean  "walkthrough",            limit: 1,   default: false
     t.string   "provider",               limit: 255
     t.string   "uid",                    limit: 255
+    t.text   "current_access_token"
   end
 
   add_index "admins", ["account_id"], name: "index_admins_on_account_id", using: :btree
