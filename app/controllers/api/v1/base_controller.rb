@@ -79,7 +79,9 @@ module Api
         client_id = (response['client_id']).split('-').last
         sql = 'select * from oauth_applications where uid = "' + client_id + '"'
         oauthApp = ActiveRecord::Base.connection.execute(sql).first
-        app = Application.find(oauthApp[7])
+        # The 7th column is the ID of the app for this clientId
+        appId = oauthApp[7]
+        app = Application.find(appId)
 
         @application ||= app
       end
