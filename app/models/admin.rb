@@ -15,11 +15,11 @@ class Admin < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   if AppConfig.registerable
     devise :database_authenticatable, :registerable,
-           :rememberable, :trackable, :validatable,
+           :rememberable, :trackable, :validatable, :timeoutable,
            :confirmable, :recoverable, :password_archivable, :omniauthable, :omniauth_providers => [:openid_connect]
   else
     devise :database_authenticatable,
-           :rememberable, :trackable, :validatable,
+           :rememberable, :trackable, :validatable, :timeoutable,
            :confirmable, :recoverable, :password_archivable, :omniauthable, :omniauth_providers => [:openid_connect]
   end
 
@@ -75,8 +75,12 @@ class Admin < ActiveRecord::Base
         email:                 auth.info.email,
         password:              password,
         password_confirmation: password,
+        current_access_token:  auth.credentials.token,
       )
       admin = admin_factory.create!
+    else
+      admin.current_access_token = auth.credentials.token
+      admin.save
     end
     return admin
   end

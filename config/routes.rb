@@ -100,27 +100,17 @@ BeaconControl::Application.routes.draw do
     end
   end
 
-  scope 'api/v1', scope: 'api' do
-    use_doorkeeper do
-      skip_controllers :applications, :authorized_applications
-    end
-  end
-
   namespace :api do
     namespace :v1 do
+      post 'oauth/token', to: 'base#get_keycloak_token'
       resources :configurations, only: [:index]
       resources :events, only: [:create]
     end
   end
 
-  scope 's2s_api/v1', scope: 's2s_api' do
-    use_doorkeeper do
-      skip_controllers :applications, :authorized_applications
-    end
-  end
-
   namespace :s2s_api do
     namespace :v1 do
+      post 'oauth/token', to: 'base#get_keycloak_token'
       resource :registrations, only: [:create], path: 'admins'
       resources :vendors, only: :index
 

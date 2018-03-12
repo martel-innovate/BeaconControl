@@ -6,17 +6,17 @@ Devise.setup do |config|
 
   config.omniauth :openid_connect, {
     name: :openid_connect,
-    scope: [:openid, :email, :name],
+    scope: ['openid', 'email', 'name', 'beacon-manager/admin'],
     response_type: :code,
     discovery: true,
-    issuer: ENV["OPENID_ISSUER"] || "https://auth.s.orchestracities.com/auth/realms/default",
+    issuer: AppConfig.keycloak_issuer,
     client_options: {
-      port: ENV["OPENID_PORT"] || 80,
+      port: AppConfig.keycloak_port,
       scheme: "https",
-      host: ENV["OPENID_HOST"] || "auth.s.orchestracities.com",
-      identifier: ENV["OPENID_CLIENT_ID"] || "beacon-manager",
-      secret: ENV["OPENID_CLIENT_SECRET"] || "bec9ee18-bd3d-4b8f-958a-d797af3eb231",
-      redirect_uri: ENV["OPENID_REDIRECT_URI"] || "http://localhost:3000/admins/auth/openid_connect/callback"
+      host: AppConfig.keycloak_host,
+      identifier: AppConfig.keycloak_client_id,
+      secret: AppConfig.keycloak_client_secret,
+      redirect_uri: AppConfig.keycloak_redirect_uri
     },
   }
 
@@ -144,7 +144,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  # config.timeout_in = 30.minutes
+  config.timeout_in = 60.minutes
 
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
