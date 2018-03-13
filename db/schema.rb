@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127133722) do
+ActiveRecord::Schema.define(version: 20180216133045) do
 
   create_table "account_extensions", id: false, force: :cascade do |t|
     t.integer "account_id",     limit: 4
@@ -57,6 +57,9 @@ ActiveRecord::Schema.define(version: 20160127133722) do
     t.integer  "role",                   limit: 4,   default: 0
     t.string   "correlation_id",         limit: 255
     t.boolean  "walkthrough",            limit: 1,   default: false
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
+    t.text   "current_access_token"
   end
 
   add_index "admins", ["account_id"], name: "index_admins_on_account_id", using: :btree

@@ -4,6 +4,22 @@ Devise.setup do |config|
 
   require 'devise/orm/active_record'
 
+  config.omniauth :openid_connect, {
+    name: :openid_connect,
+    scope: ['openid', 'email', 'name', 'beacon-manager/admin'],
+    response_type: :code,
+    discovery: true,
+    issuer: AppConfig.keycloak_issuer,
+    client_options: {
+      port: AppConfig.keycloak_port,
+      scheme: "https",
+      host: AppConfig.keycloak_host,
+      identifier: AppConfig.keycloak_client_id,
+      secret: AppConfig.keycloak_client_secret,
+      redirect_uri: AppConfig.keycloak_redirect_uri
+    },
+  }
+
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
   # just :email. You can configure it to use [:username, :subdomain], so for
@@ -128,7 +144,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  # config.timeout_in = 30.minutes
+  config.timeout_in = 60.minutes
 
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
